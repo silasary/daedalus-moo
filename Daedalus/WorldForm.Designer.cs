@@ -92,6 +92,7 @@
             this.Name = "WorldForm";
             this.Text = "WorldForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WorldForm_FormClosing);
+            this.Load += new System.EventHandler(this.WorldForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();

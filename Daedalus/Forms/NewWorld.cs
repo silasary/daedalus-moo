@@ -73,6 +73,16 @@ namespace Daedalus.Forms
 
         private void Connect_Click(object sender, EventArgs e)
         {
+            if (PasswordtextBox.Text == "Password")
+            {
+                PasswordtextBox.Text = "";
+                this.Session.Password = "";
+            }
+            if (UsernameTextBox.Text == "Username")
+            {
+                UsernameTextBox.Text = "";
+                this.Session.Username = "";
+            }
             this.DialogResult = DialogResult.OK;
         }
 
