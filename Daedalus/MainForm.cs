@@ -26,6 +26,13 @@ namespace Daedalus
             InitializeComponent();
             numToolBarItems = toolStrip.Items.Count;
             this.Text = Settings.Default.ClientName;
+            if (Settings.Default.BasicMode == true)
+            {
+                SavedSession session = new SavedSession();
+                session.Server = Settings.Default.BasicModeServer;
+                session.Port = Settings.Default.BasicModePort;
+                NewWorldWindow(session).Detach();
+            }
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -38,7 +45,7 @@ namespace Daedalus
             }
         }
 
-        public void NewWorldWindow(SavedSession session)
+        public WorldForm NewWorldWindow(SavedSession session)
         {
             WorldForm childForm = new WorldForm();
             childForm.Text = session.Name;
@@ -53,6 +60,7 @@ namespace Daedalus
             if (tabControl1.HasChildren)
                 tabControl1.Visible = true;
             childForm._connection.Connect(session);
+            return childForm;
         }
         
         void childForm_Activated(object sender, EventArgs e)
@@ -155,6 +163,10 @@ namespace Daedalus
         {
             if (MainForm.FindMainForm() == null)
                 Application.Exit();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
         }
     }
 }

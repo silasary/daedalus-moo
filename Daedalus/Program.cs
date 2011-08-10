@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Chiroptera.Base;
 
 namespace Daedalus
 {
@@ -20,7 +21,11 @@ namespace Daedalus
                 Application.ThreadException += Application_ThreadException;
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             }
-            new MainForm().Show();
+
+            MainForm form = new MainForm();
+            if (Settings.Default.BasicMode != true)
+                form.Show();
+
             Application.Run();
         }
 

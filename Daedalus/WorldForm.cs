@@ -112,14 +112,22 @@ namespace Daedalus
            _connection.Disconnect();
            if (!Chiroptera.Base.SessionManager.Default.Sessions.Contains(_connection.Session))
            {
-               switch (MessageBox.Show("Save session?",_connection.Session.Name,MessageBoxButtons.YesNo))
+
+               if (Settings.Default.BasicMode != true)
                {
-                   case (DialogResult.Yes):
-                       Chiroptera.Base.SessionManager.Default.Sessions.Add(_connection.Session);
-                       break;
-                   case (DialogResult.Cancel):
-                       e.Cancel = true;
-                       break;
+                   switch (MessageBox.Show("Save session?", _connection.Session.Name, MessageBoxButtons.YesNo))
+                   {
+                       case (DialogResult.Yes):
+                           Chiroptera.Base.SessionManager.Default.Sessions.Add(_connection.Session);
+                           break;
+                       case (DialogResult.Cancel):
+                           e.Cancel = true;
+                           break;
+                   }
+               }
+               else
+               {
+                   Application.Exit();
                }
            }
        }
