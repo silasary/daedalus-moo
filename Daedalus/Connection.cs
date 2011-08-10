@@ -73,7 +73,10 @@ namespace Daedalus
 
             form.ParagraphContainer.Add(p);
         }
-
+        public void WriteSystemLine(string format, params object[] args)
+        {
+            WriteLine(new ColorMessage(">>> " + String.Format(format, args), new List<ColorMessage.MetaData>() { new ColorMessage.MetaData(0, Color.FromSystemColor(System.Drawing.Color.White), Color.FromSystemColor(System.Drawing.Color.Blue)) }));
+        }
         public void WriteLineLow(string format, params object[] args)
         {
             string str = String.Format(format, args);
@@ -119,7 +122,7 @@ namespace Daedalus
         {
             Disconnect();
 
-            this.WriteLine("Connecting to {0}:{1}", address, port);
+            this.WriteSystemLine("Connecting to {0}:{1}", address, port);
             telnet.Connect(address, port);
             this.session = new SavedSession() { Server = address, Port = port.ToString() };
         }
@@ -129,7 +132,7 @@ namespace Daedalus
             Disconnect();
             this.session = session;
             int port;
-            this.WriteLine("Connecting to {0}:{1}", session.Server, port = int.Parse(session.Port));
+            this.WriteSystemLine("Connecting to {0}:{1}", session.Server, port = int.Parse(session.Port));
             telnet.Connect(session.Server, port);
         }
 
@@ -196,7 +199,7 @@ namespace Daedalus
 
             if (exception == null)
             {
-                WriteLine("Connected to {0}:{1}", address, port);
+                WriteSystemLine("Connected to {0}:{1}", address, port);
                 SetStatus(String.Format("Connected to {0}:{1}", address, port));
                 if (session.Username != "" && session.Password != "")
                     telnet.SendLine(session.LoginString.Replace("%u", session.Username).Replace("%p", session.Password));
@@ -204,7 +207,7 @@ namespace Daedalus
             }
             else
             {
-                WriteLine("Connect failed to {0}:{1} : {2}", address, port, exception.Message);
+                WriteSystemLine("Connect failed to {0}:{1} : {2}", address, port, exception.Message);
                 SetStatus(String.Format("Connect failed to {0}:{1} : {2}", address, port, exception.Message));
             }
         }
@@ -219,7 +222,7 @@ namespace Daedalus
         {
             ServicesDispatcher.DispatchDisconnectEvent();
 
-            WriteLine("Disconnected from {0}:{1}", address, port);
+            WriteSystemLine("Disconnected from {0}:{1}", address, port);
             SetStatus( String.Format("Disconnected from {0}:{1}", address, port));
             //m_mainWindow.PromptTextBox.Prompt = "";
             //m_mainWindow.PromptTextBox.PromptPassword = false;

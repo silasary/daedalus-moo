@@ -102,5 +102,10 @@ namespace Daedalus
         {
             //MCP.Packages.KamahlIDE._idepackage.IDEs.Remove(datatag);
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+         
+        }
     }
 }
