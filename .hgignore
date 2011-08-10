@@ -1,0 +1,10 @@
+glob:*.userprefs
+glob:*.usertasks
+glob:*.pidb
+glob:*.pc
+glob:bin
+glob:obj
+glob:*.[oad]
+glob:*~
+glob:*.suo
+glob:*.csproj.user
