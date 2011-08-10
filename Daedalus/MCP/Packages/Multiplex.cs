@@ -91,6 +91,11 @@ namespace Daedalus.MCP.Packages
             console.WriteLine(msg);
         }
 
+        public void WriteSystemLine(string format, params object[] args)
+        {
+            console.WriteSystemLine(format, args);
+        }
+
         public void WriteLineLow(string format, params object[] args)
         {
             console.WriteLineLow(format, args);

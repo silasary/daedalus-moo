@@ -9,6 +9,7 @@ namespace Chiroptera.Base
 		void WriteLine(string str);
 		void WriteLine(string format, params object[] args);
 		void WriteLine(ColorMessage msg);
+        void WriteSystemLine(string format, params object[] args);
 		void WriteLineLow(string format, params object[] args);
 
 		string Prompt
@@ -49,6 +50,11 @@ namespace Chiroptera.Base
 			{
 				Console.WriteLine(msg.Text);
 			}
+
+            public void WriteSystemLine(string format, params object[] args)
+            {
+                WriteLine(new ColorMessage(">>> " + String.Format(format, args), new List<ColorMessage.MetaData>() { new ColorMessage.MetaData(0, Color.FromSystemColor(System.Drawing.Color.White), Color.FromSystemColor(System.Drawing.Color.Blue)) }));
+            }
 
 			public void WriteLineLow(string format, params object[] args)
 			{
