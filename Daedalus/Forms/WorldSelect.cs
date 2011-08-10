@@ -51,5 +51,15 @@ namespace Daedalus.Forms
                 this.Close();
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            listView1_DoubleClick(sender, e);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+        }
     }
 }
