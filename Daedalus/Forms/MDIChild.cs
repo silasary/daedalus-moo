@@ -53,7 +53,7 @@ namespace Daedalus
             this.MdiParent = null;
             this.detachbutton.Text = "Re-attach";
             this.ToolbarItems.Add(detachbutton);
-            menustrip.Items.Remove(detachbutton);
+            menustrip.Items.AddRange(ToolbarItems.ToArray());
         }
         public void Attach(Form form)
         {
