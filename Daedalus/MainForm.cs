@@ -25,6 +25,7 @@ namespace Daedalus
         {
             InitializeComponent();
             numToolBarItems = toolStrip.Items.Count;
+            this.Text = Settings.Default.ClientName;
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -91,32 +92,9 @@ namespace Daedalus
             new WorldSelect().Show(this);
         }
 
-        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = saveFileDialog.FileName;
-            }
-        }
-
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void CutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
         }
 
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)

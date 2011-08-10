@@ -19,17 +19,20 @@ namespace Daedalus
             serializer.Serialize(stream, this);
             stream.Close();
 
-            serializer = new XmlSerializer(typeof(List<Type>)); // This doesn't always work right now.  We're relying on the plugins to feel us the types they need on Init.
-            stream = File.OpenWrite("Settings.types.xml");
+            serializer = new XmlSerializer(typeof(List<Type>));
             try
             {
-                serializer.Serialize(stream, SerializedTypes.Select(t => t.GUID).ToArray());
+                stream = File.OpenWrite("Settings.types.xml");
+                serializer.Serialize(stream, SerializedTypes);
             }
             catch (Exception v)
             {
                 throw v;
             }
-            stream.Close();
+            finally
+            {
+                stream.Close();
+            }
         }
 
         private static Settings _default;

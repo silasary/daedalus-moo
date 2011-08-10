@@ -12,8 +12,6 @@ Folders you might need to work with:
 
 Folders you shouldn't be working with:
 * ChiropteraWin - The old client.  There a handful of modifications made before I realized I should just rewrite the entire frontend, but for the most part it's the original client.  You should edit Daedalus instead.
-* ChiropteraLin - A half-hearted linux frontend. I've not tested whether it works.  Don't bother with it.
-* libchiroptera - Apparently related to the above linux frontend.
 
 Other Folders:
 * IronPython - The IronPython dlls.
