@@ -47,6 +47,7 @@ namespace Daedalus
             childForm.Closed += new EventHandler(childForm_Closed);
             childForm.Activated += new EventHandler(childForm_Activated);
             childForm.StatusLabel.Text = new Random().Next().ToString();
+            childForm.WindowState = FormWindowState.Maximized;
             childForm.Show();
             if (tabControl1.HasChildren)
                 tabControl1.Visible = true;
