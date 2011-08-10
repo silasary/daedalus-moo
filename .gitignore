@@ -1,0 +1,11 @@
+*.userprefs
+*.usertasks
+*.pidb
+*.pc
+bin
+obj
+*.[oad]
+*~
+*.suo
+*.csproj.user
+

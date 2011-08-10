@@ -1,0 +1,13 @@
+﻿using System;
+using Chiroptera.Base;
+namespace Daedalus
+{
+    public interface IConnection : IChiConsole, INetwork
+    {
+        void AddWidgit(System.Windows.Forms.Control control);
+        void AddWidgit(System.Windows.Forms.ToolStripItem toolstripitem);
+        WorldForm Form { get; }
+        Chiroptera.Base.SavedSession Session { get; }
+        void SetStatus(string status);
+    }
+}
