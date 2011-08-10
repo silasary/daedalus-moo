@@ -52,8 +52,12 @@ namespace Daedalus
             statusBar.Items.AddRange(ToolStripItems.ToArray());
             this.MdiParent = null;
             this.detachbutton.Text = "Re-attach";
-            this.ToolbarItems.Add(detachbutton);
-            menustrip.Items.AddRange(ToolbarItems.ToArray());
+            if (Settings.Default.BasicMode == true)
+            {
+                this.menustrip.Visible = false;
+            }
+                this.ToolbarItems.Add(detachbutton);
+                menustrip.Items.AddRange(ToolbarItems.ToArray());
         }
         public void Attach(Form form)
         {
