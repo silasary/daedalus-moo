@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiroptera", "ChiropteraBase\Chiroptera.csproj", "{C31F660E-90FF-4D5D-90E4-04E7FF24EF08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChiropteraWin", "ChiropteraWin\ChiropteraWin.csproj", "{F72D97C3-F609-46A6-A4EA-87034C2E9FCF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daedalus", "Daedalus\Daedalus.csproj", "{DD45BD8A-A5B9-48FF-B76A-A70C21BF1D55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{35738BC6-55FC-4B45-9FFC-D2B49324F189}"
