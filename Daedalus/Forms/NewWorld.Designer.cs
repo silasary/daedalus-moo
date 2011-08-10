@@ -35,9 +35,8 @@
             this.ServerTextBox = new System.Windows.Forms.TextBox();
             this.PortTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.PasswordtextBox = new System.Windows.Forms.TextBox();
             this.UsernameTextBox = new System.Windows.Forms.TextBox();
+            this.PasswordtextBox = new System.Windows.Forms.TextBox();
             ServerLabel = new System.Windows.Forms.Label();
             PortLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -97,44 +96,40 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.UsernameTextBox);
             this.groupBox1.Controls.Add(this.PasswordtextBox);
             this.groupBox1.Location = new System.Drawing.Point(13, 75);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(268, 71);
+            this.groupBox1.Size = new System.Drawing.Size(268, 50);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Optional details";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "user/pass";
-            // 
-            // PasswordtextBox
-            // 
-            this.PasswordtextBox.Location = new System.Drawing.Point(161, 19);
-            this.PasswordtextBox.Name = "PasswordtextBox";
-            this.PasswordtextBox.Size = new System.Drawing.Size(100, 20);
-            this.PasswordtextBox.TabIndex = 1;
+            this.groupBox1.Text = "Optional Details";
             // 
             // UsernameTextBox
             // 
-            this.UsernameTextBox.Location = new System.Drawing.Point(67, 19);
+            this.UsernameTextBox.Location = new System.Drawing.Point(8, 19);
             this.UsernameTextBox.Name = "UsernameTextBox";
-            this.UsernameTextBox.Size = new System.Drawing.Size(88, 20);
+            this.UsernameTextBox.Size = new System.Drawing.Size(123, 20);
             this.UsernameTextBox.TabIndex = 0;
+            this.UsernameTextBox.Text = "Username";
+            this.UsernameTextBox.GotFocus += new System.EventHandler(this.UsernameTextBox_GotFocus);
+            this.UsernameTextBox.LostFocus += new System.EventHandler(this.UsernameTextBox_LostFocus);
+            // 
+            // PasswordtextBox
+            // 
+            this.PasswordtextBox.Location = new System.Drawing.Point(137, 19);
+            this.PasswordtextBox.Name = "PasswordtextBox";
+            this.PasswordtextBox.Size = new System.Drawing.Size(123, 20);
+            this.PasswordtextBox.TabIndex = 1;
+            this.PasswordtextBox.Text = "Password";
+            this.PasswordtextBox.GotFocus += new System.EventHandler(this.PasswordtextBox_GotFocus);
+            this.PasswordtextBox.LostFocus += new System.EventHandler(this.PasswordtextBox_LostFocus);
             // 
             // NewWorld
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 158);
+            this.ClientSize = new System.Drawing.Size(293, 134);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(PortLabel);
             this.Controls.Add(ServerLabel);
@@ -143,7 +138,8 @@
             this.Controls.Add(this.Connect);
             this.Controls.Add(this.Cancel);
             this.Name = "NewWorld";
-            this.Text = "WorldSelectForm";
+            this.Text = "New World";
+            this.Load += new System.EventHandler(this.NewWorld_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -158,7 +154,6 @@
         private System.Windows.Forms.TextBox ServerTextBox;
         private System.Windows.Forms.TextBox PortTextBox;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox PasswordtextBox;
         private System.Windows.Forms.TextBox UsernameTextBox;
     }

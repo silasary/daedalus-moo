@@ -33,6 +33,42 @@ namespace Daedalus.Forms
         {
             InitializeComponent();
             this.Session = new SavedSession();
+            this.Session.Username = "Username";
+            this.Session.Password = "Password";
+        }
+
+        void UsernameTextBox_LostFocus(object sender, System.EventArgs e)
+        {
+            if (UsernameTextBox.Text == "")
+            {
+                UsernameTextBox.Text = "Username";
+            }
+        }
+
+        void UsernameTextBox_GotFocus(object sender, System.EventArgs e)
+        {
+            if (UsernameTextBox.Text == "Username")
+            {
+                UsernameTextBox.Text = "";
+            }
+        }
+
+        void PasswordtextBox_LostFocus(object sender, System.EventArgs e)
+        {
+            if (PasswordtextBox.Text == "")
+            {
+                PasswordtextBox.Text = "Password";
+                PasswordtextBox.UseSystemPasswordChar = false;
+            }
+        }
+
+        void PasswordtextBox_GotFocus(object sender, System.EventArgs e)
+        {
+            if (PasswordtextBox.Text == "Password")
+            {
+                PasswordtextBox.UseSystemPasswordChar = true;
+                PasswordtextBox.Text = "";
+            }
         }
 
         private void Connect_Click(object sender, EventArgs e)
@@ -67,6 +103,11 @@ namespace Daedalus.Forms
             {
                 PortTextBox.Text = value;
             }
+        }
+
+        private void NewWorld_Load(object sender, EventArgs e)
+        {
+
         }
 
     }
