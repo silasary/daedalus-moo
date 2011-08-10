@@ -5,8 +5,21 @@ using System.Text;
 
 namespace Daedalus
 {
-    partial class Settings
+    public partial class Settings
     {
-
+        private string clientName;
+        public string ClientName
+        {
+            get
+            {
+                if (clientName == null)
+                    return "Daedalus";
+                return clientName;
+            }
+            set
+            {
+                clientName = value;
+            }
+        }
     }
 }
