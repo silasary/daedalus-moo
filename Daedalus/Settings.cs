@@ -21,6 +21,7 @@ namespace Daedalus
                 clientName = value;
             }
         }
+
         private bool basicMode;
         public bool BasicMode
         {
@@ -33,6 +34,7 @@ namespace Daedalus
                 basicMode = value;
             }
         }
+
         private string basicModePort;
         public string BasicModePort
         {
@@ -47,6 +49,7 @@ namespace Daedalus
                 basicModePort = value;
             }
         }
+
         private string basicModeServer;
         public string BasicModeServer
         {
@@ -61,5 +64,7 @@ namespace Daedalus
                 basicModeServer = value;
             }
         }
+
+
     }
 }

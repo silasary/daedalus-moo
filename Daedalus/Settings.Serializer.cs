@@ -55,7 +55,11 @@ namespace Daedalus
                     {
                         serializer = new XmlSerializer(typeof(Settings), SerializedTypes.ToArray());
                         stream = File.OpenRead("Settings.xml");
-                        _default = serializer.Deserialize(stream) as Settings;
+                        try
+                        {
+                            _default = serializer.Deserialize(stream) as Settings;
+                        }
+                        catch { }
                         stream.Close();
                     }
                     else

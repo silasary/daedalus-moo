@@ -35,6 +35,9 @@
             this.InfoBox = new System.Windows.Forms.GroupBox();
             this.NewWorldButton = new System.Windows.Forms.Button();
             this.OpenButton = new System.Windows.Forms.Button();
+            this.labelServer = new System.Windows.Forms.Label();
+            this.labelPort = new System.Windows.Forms.Label();
+            this.labelUsername = new System.Windows.Forms.Label();
             this.InfoBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,6 +72,9 @@
             // 
             // InfoBox
             // 
+            this.InfoBox.Controls.Add(this.labelUsername);
+            this.InfoBox.Controls.Add(this.labelPort);
+            this.InfoBox.Controls.Add(this.labelServer);
             this.InfoBox.Controls.Add(this.NewWorldButton);
             this.InfoBox.Location = new System.Drawing.Point(295, 13);
             this.InfoBox.Name = "InfoBox";
@@ -97,6 +103,33 @@
             this.OpenButton.UseVisualStyleBackColor = true;
             this.OpenButton.Click += new System.EventHandler(this.button2_Click);
             // 
+            // labelServer
+            // 
+            this.labelServer.AutoSize = true;
+            this.labelServer.Location = new System.Drawing.Point(7, 20);
+            this.labelServer.Name = "labelServer";
+            this.labelServer.Size = new System.Drawing.Size(44, 13);
+            this.labelServer.TabIndex = 1;
+            this.labelServer.Text = "Server: ";
+            // 
+            // labelPort
+            // 
+            this.labelPort.AutoSize = true;
+            this.labelPort.Location = new System.Drawing.Point(19, 33);
+            this.labelPort.Name = "labelPort";
+            this.labelPort.Size = new System.Drawing.Size(32, 13);
+            this.labelPort.TabIndex = 2;
+            this.labelPort.Text = "Port: ";
+            // 
+            // labelUsername
+            // 
+            this.labelUsername.AutoSize = true;
+            this.labelUsername.Location = new System.Drawing.Point(6, 66);
+            this.labelUsername.Name = "labelUsername";
+            this.labelUsername.Size = new System.Drawing.Size(58, 13);
+            this.labelUsername.TabIndex = 3;
+            this.labelUsername.Text = "Username:";
+            // 
             // WorldSelect
             // 
             this.AcceptButton = this.OpenButton;
@@ -110,6 +143,7 @@
             this.Name = "WorldSelect";
             this.Text = "WorldSelect";
             this.InfoBox.ResumeLayout(false);
+            this.InfoBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -122,5 +156,8 @@
         private System.Windows.Forms.Button OpenButton;
         private System.Windows.Forms.Button NewWorldButton;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Label labelUsername;
+        private System.Windows.Forms.Label labelPort;
+        private System.Windows.Forms.Label labelServer;
     }
 }

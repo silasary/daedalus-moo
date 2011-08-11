@@ -123,5 +123,15 @@ namespace Daedalus.MCP.Packages
         {
             Handler.SendOOB("dns-silasary-IDE-property", MCPHandler.CreateKeyvals("object", mOOObject.ToString(), "property", propname));
         }
+
+        #region MCPPackage Members
+
+
+        public void Disconnected()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

@@ -7,5 +7,6 @@ namespace Daedalus
         void AddWidgit(System.Windows.Forms.Control control);
         void AddWidgit(System.Windows.Forms.ToolStripItem toolstripitem);
         WorldForm Form { get; }
+        BaseServicesDispatcher ServicesDispatcher { get; }
     }
 }

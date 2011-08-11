@@ -57,5 +57,15 @@ namespace Daedalus.MCP.Packages
         }
 
         #endregion
+
+        #region MCPPackage Members
+
+
+        public void Disconnected()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

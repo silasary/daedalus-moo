@@ -6,9 +6,9 @@ using Daedalus.MCP;
 
 namespace Daedalus.PluginModel
 {
-    interface IPlugin
+    public interface IPlugin
     {
         List<MCPPackage> MCPPackages { get; }
-
+        void NewConnection(IConnection connection);
     }
 }

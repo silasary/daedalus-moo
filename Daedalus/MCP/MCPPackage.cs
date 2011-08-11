@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Daedalus.MCP
 {
-    interface MCPPackage
+    public interface MCPPackage
     {
         string PackageName { get; }
         string minVer { get; }
@@ -12,5 +12,6 @@ namespace Daedalus.MCP
 
         void HandleMessage(string command, Dictionary<string, string> KeyVals);
         void Negotiated();
+        void Disconnected();
     }
 }

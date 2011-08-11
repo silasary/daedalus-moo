@@ -51,6 +51,8 @@ namespace Daedalus
             catch
             {
                 MessageBox.Show("Fatal Error in error reporting");
+                System.IO.File.WriteAllText("Error.txt", e.ToString());
+                System.Diagnostics.Process.Start("Error.txt");
                 Application.Exit();
             }
         }

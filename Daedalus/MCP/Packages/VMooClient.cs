@@ -53,6 +53,16 @@ namespace Daedalus.MCP.Packages
         {
             Handler.SendOOB("dns-com-vmoo-client-screensize", MCPHandler.CreateKeyvals("Cols", Handler.CurrentConnection.Form.TextView.Columns.ToString(), "Rows", Handler.CurrentConnection.Form.TextView.Lines.ToString()));
         }
+
+        #region MCPPackage Members
+
+
+        public void Disconnected()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
 /*
