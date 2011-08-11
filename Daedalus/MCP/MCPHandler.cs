@@ -34,6 +34,7 @@ namespace Daedalus.MCP
             //Packages.Add(new Packages.VMooSmartComplete(this));
             Packages.Add(new Packages.SimpleEdit(this));
             Packages.Add(new Packages.VMooClient(this));
+            Packages.Add(new Packages.Multiplex(this));
         }
 
         internal void ReceiveOOB(string s)

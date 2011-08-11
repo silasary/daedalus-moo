@@ -80,7 +80,7 @@
             this.splitContainer2.Panel2.Resize += new System.EventHandler(this.splitContainer2_Panel2_Resize);
             this.splitContainer2.Panel2Collapsed = true;
             this.splitContainer2.Size = new System.Drawing.Size(668, 402);
-            this.splitContainer2.SplitterDistance = 553;
+            this.splitContainer2.SplitterDistance = 548;
             this.splitContainer2.TabIndex = 0;
             // 
             // WorldForm

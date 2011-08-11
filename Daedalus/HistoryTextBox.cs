@@ -120,7 +120,12 @@ namespace Chiroptera.Win
 				EnterPressed();
 				e.Handled = true;
 			}
-
+            else if (!this.Focused) // Because the textbox isn't going to do it for us.
+            {
+                this.Focus();
+                this.Text += e.KeyChar;
+                this.SelectionStart = this.Text.Length;
+            }
 			base.OnKeyPress(e);
 		}
 
