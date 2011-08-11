@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chiroptera.Base;
+using Daedalus.MOO;
 
 namespace Daedalus.MCP.Packages
 {
@@ -42,6 +43,8 @@ namespace Daedalus.MCP.Packages
                     WorldForm wf = new WorldForm();
                     wf._connection = new MultiplexConnection(wf, this.WindowCommand, KeyVals["tag"]);
                     windows.Add(KeyVals["tag"], (MultiplexConnection)wf._connection);
+                    wf.Text = KeyVals["name"];
+                    Handler.CurrentConnection.Form.Invoke(new Action(() => wf.Show())); // We need it on the UI thread.
                     break;
                 default:
                     break;
@@ -58,7 +61,7 @@ namespace Daedalus.MCP.Packages
 
         public void WindowCommand(string tag, string line)
         {
-            Handler.SendOOB("dns-uk-co-thc-gaming-multiplex-command", MCPHandler.CreateKeyvals("_data-tag", tag, "line", line));
+            Handler.SendOOB("dns-uk-co-thc-gaming-multiplex-command", MCPHandler.CreateKeyvals("tag", tag, "line", Interop.Escape(line)));
         }
     }
 
@@ -131,15 +134,14 @@ namespace Daedalus.MCP.Packages
 
         public void Connect(string address, int port)
         {
-            console.Form._connection.Connect(address, port);
+            
         }
         public void Connect(SavedSession session)
         {
-            console.Form._connection.Connect(session);
-        }
+                    }
         public void Disconnect()
         {
-            console.Form._connection.Disconnect();
+            
         }
 
         public bool IsConnected

@@ -84,14 +84,8 @@ namespace Daedalus
             //TextViewControl.Font = global::Chiroptera.Win.Properties.Settings.Default.MainFont;
             TextViewControl.ForeColor = System.Drawing.Color.White;
             TextViewControl.TabStop = false;
-            TextViewControl.MouseClick += new MouseEventHandler(TextViewControl_MouseClick);
             splitContainer2.Panel1.Controls.Add(TextViewControl);
             historyTextBox1.ListenOther(TextViewControl); // Pass the keypresses.
-        }
-
-        void TextViewControl_MouseClick(object sender, MouseEventArgs e)
-        {
-            historyTextBox1.Focus();
         }
 
         public ParagraphContainer ParagraphContainer
@@ -110,7 +104,7 @@ namespace Daedalus
        private void WorldForm_FormClosing(object sender, FormClosingEventArgs e)
        {
            _connection.Disconnect();
-           if (!Chiroptera.Base.SessionManager.Default.Sessions.Contains(_connection.Session))
+           if (_connection.Session != null && !Chiroptera.Base.SessionManager.Default.Sessions.Contains(_connection.Session))
            {
 
                if (Settings.Default.BasicMode != true)
