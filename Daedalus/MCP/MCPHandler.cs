@@ -7,10 +7,8 @@ using System.Text.RegularExpressions;
 
 namespace Daedalus.MCP
 {
-    class MCPHandler
+    public class MCPHandler
     {
-        //public static MCPHandler _mcpHandler;
-
         public string AuthenticationKey;
 
         public List<MCPPackage> Packages = new List<MCPPackage>();
@@ -225,6 +223,9 @@ namespace Daedalus.MCP
 
         private void LoadPackages()
         {
+            
+            Packages.AddRange(PluginModel.PluginLoader.ExternalMCPPackages(this));
+            //the above goes first, so that external packages can override the internal ones if needed.
             Packages.Add(new Packages.MCPNegotiate(this));
             Packages.Add(new Packages.AwnsStatus(this));
             Packages.Add(new Packages.VMooUserlist(this));

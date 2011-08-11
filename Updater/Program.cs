@@ -10,6 +10,8 @@ namespace Updater  // Generic auto-updater.
 {
     class Program
     {
+        static WebClient client = new WebClient();
+
         static void Main(string[] args)
         {
             bool Generate = false;
@@ -24,7 +26,7 @@ namespace Updater  // Generic auto-updater.
                 MessageBox.Show("Update Manifest not found.");
                 return;
             }
-            WebClient client = new WebClient();
+            
             for (int i = 0; i < manifests.Length; i++)
             {
                 Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -102,15 +104,15 @@ namespace Updater  // Generic auto-updater.
                             if (mode == 0 && MD5File(file) != value.Trim())
                             {
                                 Console.WriteLine("Updating " + file + "...");
-                                client.DownloadFile(address, file);
+                                DownloadFile(address, file);
                             }
                             else if (mode == 1 && File.Exists(file) && MD5File(file) != value.Trim())
                             {
-                                client.DownloadFile(address, file);
+                                DownloadFile(address, file);
                             }
                             else if (mode == -1 && !File.Exists(file))
                             {
-                                client.DownloadFile(address, file);
+                                DownloadFile(address, file);
                             }
                             break;
                         case ("terminate"):
@@ -134,6 +136,25 @@ namespace Updater  // Generic auto-updater.
                 }
                 if (Generate)
                     File.WriteAllLines(manifests[i], manifest);
+            }
+        }
+
+        private static void DownloadFile(string address, string file)
+        {
+            try
+            {
+                client.DownloadFile(address, file);
+
+            }
+            catch (WebException v)
+            {
+                if (v.InnerException is UnauthorizedAccessException || v.InnerException is IOException)
+                {
+                    if (File.Exists(file + ".old"))
+                        File.Delete(file + ".old");
+                    File.Move(file, file + ".old");
+                    client.DownloadFile(address, file);
+                }
             }
         }
 
@@ -164,5 +185,6 @@ namespace Updater  // Generic auto-updater.
                 throw;
             }
         }
+
     }
 }

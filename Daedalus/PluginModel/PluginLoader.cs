@@ -45,5 +45,23 @@ namespace Daedalus.PluginModel
                plugin.NewConnection(connection);
            }
        }
+
+       public static List<MCP.MCPPackage> ExternalMCPPackages(MCP.MCPHandler handler)
+       {
+           List<MCP.MCPPackage> packages = new List<MCP.MCPPackage>();
+           foreach (IPlugin plugin in Plugins)
+           {
+               try
+               {
+                   
+                   foreach (Type packageType in plugin.MCPPackages)
+                   {
+                        packages.Add((MCP.MCPPackage)packageType.InvokeMember("",BindingFlags.CreateInstance,null,null,new object[] { handler}));
+                   }
+               }
+               catch (NotImplementedException) { }
+           }
+           return packages;
+       }
     }
 }
