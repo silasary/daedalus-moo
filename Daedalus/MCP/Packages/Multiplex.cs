@@ -63,6 +63,16 @@ namespace Daedalus.MCP.Packages
         {
             Handler.SendOOB("dns-uk-co-thc-gaming-multiplex-command", MCPHandler.CreateKeyvals("tag", tag, "line", Interop.Escape(line)));
         }
+
+        #region MCPPackage Members
+
+
+        public void Disconnected()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 
     public class MultiplexConnection : IConnection
@@ -196,6 +206,11 @@ namespace Daedalus.MCP.Packages
         public void SetStatus(string status)
         {
             console.SetStatus(status);
+        }
+        
+        public BaseServicesDispatcher ServicesDispatcher
+        {
+            get { return console.ServicesDispatcher; }
         }
 
         #endregion

@@ -29,7 +29,9 @@ namespace Daedalus.MCP
         {
             _connection = connection;
             connection.ServicesDispatcher.RegisterMessageHandler(HandleMessage);
+            connection.ServicesDispatcher.RegisterDisconnectHandler(DisconnectHandler);
         }
+        #region dispatch
         public ColorMessage HandleMessage(ColorMessage colorMessage)
         {
             if (colorMessage.Text.StartsWith("#$#")) // Out of Band messages.
@@ -44,6 +46,15 @@ namespace Daedalus.MCP
             return colorMessage;
         }
 
+        public void DisconnectHandler()
+        {
+            foreach (MCPPackage package in Packages)
+            {
+                package.Disconnected();
+            }
+            this.Packages.Clear();
+        }
+        #endregion
         internal void ReceiveOOB(string s)
         {
             Console.WriteLine("<" + s);

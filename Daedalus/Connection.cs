@@ -45,6 +45,8 @@ namespace Daedalus
             telnet.telnetEvent += new Telnet.TelnetDelegate(_TelnetEvent);
 
             m_MCP = new MCPHandler(this);
+
+            PluginModel.PluginLoader.DispatchNewConnection(this);
         }
 
         #region IChiConsole Members
