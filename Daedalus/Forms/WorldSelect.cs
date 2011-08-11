@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Chiroptera.Base;
 
 namespace Daedalus.Forms
 {
@@ -60,6 +61,35 @@ namespace Daedalus.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                foreach (int i in listView1.SelectedIndices)
+                {
+                    NewWorld nwForm = new NewWorld() { Session = manager.Sessions[i] };
+                    nwForm.ShowDialog();
+                }
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count > 0)
+            {
+                List<SavedSession> sessions = new List<SavedSession>();
+                foreach (int i in listView1.SelectedIndices)
+                {
+                    sessions.Add(manager.Sessions[i]);  // Otherwise the indexes get messed up.
+                }
+                foreach (SavedSession s in sessions)
+                {
+                    manager.Sessions.Remove(s);
+                }
+                listView1.VirtualListSize = manager.Sessions.Count;
+            }
         }
     }
 }

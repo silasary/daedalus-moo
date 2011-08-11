@@ -8,7 +8,7 @@ namespace Daedalus.PluginModel
 {
     public interface IPlugin
     {
-        List<MCPPackage> MCPPackages { get; }
+        Type[] MCPPackages { get; }
         void NewConnection(IConnection connection);
     }
 }

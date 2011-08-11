@@ -46,7 +46,37 @@ namespace Daedalus.MCP.Packages
                     wf.Text = KeyVals["name"];
                     Handler.CurrentConnection.Form.Invoke(new Action(() => wf.Show())); // We need it on the UI thread.
                     break;
+                case ("dns-uk-co-thc-gaming-multiplex-msg"):
+                    if (MCPHandler.ContainsKeys(KeyVals, "tag"))
+                        if (!windows.ContainsKey(KeyVals["tag"]))
+                        {
+                            Handler.SendOOB("dns-uk-co-thc-gaming-multiplex-close", MCPHandler.CreateKeyvals("tag", KeyVals["tag"]));
+                            return;
+                        }
+                    if (MCPHandler.ContainsKeys(KeyVals, "tag", "_data-tag", "line*")) // They're sending more than one.
+                        Handler.RegisterMultilineHandler(KeyVals["_data-tag"], "dns-uk-co-thc-gaming-multiplex-mlmsg-" + KeyVals["tag"]);
+                    if (!MCPHandler.ContainsKeys(KeyVals, "line", "tag"))
+                        return;
+                    windows[KeyVals["tag"]].WriteLine(KeyVals["line"]);
+                    break;
+                case ("dns-uk-co-thc-gaming-multiplex-cls"):
+                    if (!MCPHandler.ContainsKeys(KeyVals, "tag"))
+                        return;
+                    for (int i = 0; i < windows[KeyVals["tag"]].Form.TextView.Lines; i++)
+                    {
+                        windows[KeyVals["tag"]].WriteLine("\n");
+                    }
+                    break;
+                case ("dns-uk-co-thc-gaming-multiplex-close"):
+                    windows[KeyVals["tag"]].Form.Close();
+                    windows.Remove(KeyVals["tag"]);
+                    break;
                 default:
+                    if (command.StartsWith("dns-uk-co-thc-gaming-multiplex-mlmsg-"))
+                    {
+                        string tag = command.Substring("dns-uk-co-thc-gaming-multiplex-mlmsg-".Length);
+                        windows[tag].WriteLine(KeyVals["line"]);
+                    }
                     break;
             }
         }
@@ -69,7 +99,11 @@ namespace Daedalus.MCP.Packages
 
         public void Disconnected()
         {
-            throw new NotImplementedException();
+            foreach (MultiplexConnection win in windows.Values)
+            {
+                win.Form.Close();
+            }
+            windows.Clear();
         }
 
         #endregion
