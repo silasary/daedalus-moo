@@ -59,6 +59,7 @@ namespace Daedalus
             _connection = new Connection(this);
             InitTextView();
             _connection.WriteLine("Initialized");
+            
         }
 
         private void InitTextView()
@@ -98,6 +99,7 @@ namespace Daedalus
 
        private void historyTextBox1_textEntered(string str)
        {
+
            _connection.SendLine(str);
        }
 

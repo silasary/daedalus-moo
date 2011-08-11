@@ -26,8 +26,6 @@ namespace Daedalus
         {
             get
             {
-                if (basicMode == null)
-                    return false;
                 return basicMode;
             }
             set

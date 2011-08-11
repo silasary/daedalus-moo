@@ -22,9 +22,10 @@ namespace Chiroptera.Base
 		}
 
 		Dictionary<string, CommandData> m_commandMap = new Dictionary<string, CommandData>();
-
+        BaseServicesDispatcher dispatcher;
 		public CommandManager(BaseServicesDispatcher dispatcher)
 		{
+            this.dispatcher = dispatcher;
 			dispatcher.RegisterInputHandler(HandleInput);
 
 			AddCommand("help", HelpCmd, "list all commands or display help for a single command", "");
@@ -77,7 +78,7 @@ namespace Chiroptera.Base
 
 			if (input[0] != '/')
 			{
-				ChiConsole.WriteLine("Input is not a command: {0}", input);
+				dispatcher.Console.WriteLine("Input is not a command: {0}", input);
 				return -1;
 			}
 
@@ -106,12 +107,12 @@ namespace Chiroptera.Base
 				
 				if(l.Count == 0)
 				{
-					ChiConsole.WriteLine("Unknown command {0}", cmd);
+                    dispatcher.Console.WriteLine("Unknown command {0}", cmd);
 					return -1;
 				}
 				else if(l.Count > 1)
 				{
-					ChiConsole.WriteLine("Ambigious command. ({0})", String.Join(", ", l.ToArray()));
+                    dispatcher.Console.WriteLine("Ambigious command. ({0})", String.Join(", ", l.ToArray()));
 					return -1;
 				}
 				else
@@ -130,7 +131,7 @@ namespace Chiroptera.Base
 			}
 			catch (Exception e)
 			{
-				ChiConsole.WriteError("Error handling command " + cmd, e);
+                dispatcher.Console.WriteError("Error handling command " + cmd, e);
 			}
 
 			return res;
@@ -140,8 +141,8 @@ namespace Chiroptera.Base
 		{
 			if (input.Length == 0)
 			{
-				ChiConsole.WriteLine("Commands");
-				ChiConsole.WriteLine("--------");
+                dispatcher.Console.WriteLine("Commands");
+                dispatcher.Console.WriteLine("--------");
 
 				string[] keys = new string[m_commandMap.Count];
 				m_commandMap.Keys.CopyTo(keys, 0);
@@ -150,9 +151,9 @@ namespace Chiroptera.Base
 				foreach (string key in keys)
 				{
 					if (m_commandMap[key].m_help != null)
-						ChiConsole.WriteLine("{0} - {1}", key, m_commandMap[key].m_help);
+                        dispatcher.Console.WriteLine("{0} - {1}", key, m_commandMap[key].m_help);
 					else
-						ChiConsole.WriteLine("{0}", key);
+                        dispatcher.Console.WriteLine("{0}", key);
 				}
 			}
 			else
@@ -162,19 +163,19 @@ namespace Chiroptera.Base
 					CommandData data = m_commandMap[input];
 					if (data.m_longhelp == null)
 					{
-						ChiConsole.WriteLine("No help available.");
+                        dispatcher.Console.WriteLine("No help available.");
 					}
 					else
 					{
-						ChiConsole.WriteLine("");
-						ChiConsole.WriteLine("/{0} - {1}", input, data.m_help);
-						ChiConsole.WriteLine("");
-						ChiConsole.WriteLine(data.m_longhelp);
+                        dispatcher.Console.WriteLine("");
+                        dispatcher.Console.WriteLine("/{0} - {1}", input, data.m_help);
+                        dispatcher.Console.WriteLine("");
+						dispatcher.Console.WriteLine(data.m_longhelp);
 					}
 				}
 				else
 				{
-					ChiConsole.WriteLine("No such command.");
+                    dispatcher.Console.WriteLine("No such command.");
 				}
 			}
 

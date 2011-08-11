@@ -42,7 +42,7 @@ namespace Chiroptera.Win
 			if (args.Length == 1 && args[0] == "/reset")
 				Properties.Settings.Default.Reset();
 
-			m_baseServicesDispatcher = new BaseServicesDispatcher();
+			m_baseServicesDispatcher = new BaseServicesDispatcher(this);
 
 			// Init mainwindow and display
 			m_mainWindow = new MainWindow(this);
@@ -622,6 +622,11 @@ namespace Chiroptera.Win
 			m_paragraphContainer.Add(p);
 		}
 
+        public void WriteSystemLine(string format, params object[] args)
+        {
+            WriteLine(format, args);
+        }
+
 		public void WriteLineLow(string format, params object[] args)
 		{
 			string str = String.Format(format, args);
@@ -706,5 +711,25 @@ namespace Chiroptera.Win
 		}
 
 		#endregion
-	}
+
+        #region IChiConsole Members
+
+
+        public SavedSession Session
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public void SetStatus(string status)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WriteError(string format, params object[] args)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
 }

@@ -64,7 +64,10 @@ namespace Daedalus.MOO
                 return this.id == (obj as MOOObject).id;
             return base.Equals(obj);
         }
-
+        public override int GetHashCode()
+        {
+            return this.id.GetHashCode();
+        }
         public void LoadPropList(List<object> moolist)
         {
             foreach (object propname in moolist)
