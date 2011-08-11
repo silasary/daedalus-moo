@@ -27,9 +27,11 @@ namespace Chiroptera.Base
 		event InputEventDelegate InputEvent;
 		event OutputEventDelegate OutputEvent;
 		event KeyDownEventDelegate KeyDownEvent;
-
-		public BaseServicesDispatcher()
+        private IChiConsole console;
+        public IChiConsole Console { get { return console; } }
+		public BaseServicesDispatcher(IChiConsole console)
 		{
+            this.console = console;
 		}
 
 		public void RegisterConnectHandler(ConnectEventDelegate handler)

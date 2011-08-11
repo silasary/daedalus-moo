@@ -12,6 +12,7 @@ namespace Daedalus
     {
         WorldForm form;
         BaseServicesDispatcher ServicesDispatcher;
+        CommandManager commandManager;
         Telnet telnet;
         SavedSession session;
 
@@ -32,7 +33,9 @@ namespace Daedalus
         {
             this.form = form;
             
-            ServicesDispatcher = new BaseServicesDispatcher();
+            ServicesDispatcher = new BaseServicesDispatcher(this);
+
+            commandManager = new CommandManager(ServicesDispatcher);
 
             telnet = new Telnet();
             telnet.connectEvent += new Telnet.ConnectDelegate(_ConnectEvent);
@@ -76,6 +79,10 @@ namespace Daedalus
         public void WriteSystemLine(string format, params object[] args)
         {
             WriteLine(new ColorMessage(">>> " + String.Format(format, args), new List<ColorMessage.MetaData>() { new ColorMessage.MetaData(0, Color.FromSystemColor(System.Drawing.Color.White), Color.FromSystemColor(System.Drawing.Color.Blue)) }));
+        }
+        public void WriteError(string format, params object[] args)
+        {
+            WriteLine(new ColorMessage("!>> " + String.Format(format, args), new List<ColorMessage.MetaData>() { new ColorMessage.MetaData(0, Color.FromSystemColor(System.Drawing.Color.White), Color.FromSystemColor(System.Drawing.Color.Blue)) }));
         }
         public void WriteLineLow(string format, params object[] args)
         {
@@ -148,6 +155,11 @@ namespace Daedalus
 
         public void SendLine(string str)
         {
+            str = ServicesDispatcher.DispatchInputEvent(str);
+
+            if (str == null)
+                return;
+
             if (IsConnected)
                 telnet.Send(str + "\n");
         }

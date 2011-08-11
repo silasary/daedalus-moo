@@ -502,7 +502,7 @@ namespace Daedalus
 		void CopyLines(Graphics g, int srcLine, int dstLine, int lines)
 		{
 			//Console.WriteLine("CopyLines {0}-{1} -> {2}", srcLine, srcLine + lines, dstLine);
-#warning commented bitblt
+//#warning commented bitblt
             //IntPtr handle = g.GetHdc();
             //BitBlt(handle,
             //    0, dstLine * m_charHeight,

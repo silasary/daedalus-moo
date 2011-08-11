@@ -9,6 +9,7 @@ namespace Chiroptera.Base
 		void WriteLine(string str);
 		void WriteLine(string format, params object[] args);
 		void WriteLine(ColorMessage msg);
+        void WriteError(string format, params object[] args);
         void WriteSystemLine(string format, params object[] args);
 		void WriteLineLow(string format, params object[] args);
 
@@ -23,6 +24,9 @@ namespace Chiroptera.Base
 			get;
 			set;
 		}
+        SavedSession Session { get; }
+        void SetStatus(string status);
+
 	}
 
 	public static class ChiConsole
@@ -36,11 +40,13 @@ namespace Chiroptera.Base
 
 			#region IChiConsole Members
 
+            [Obsolete("Don't use the static DefaultConsole")]
 			public void WriteLine(string str)
 			{
 				Console.WriteLine(str);
 			}
 
+            [Obsolete("Don't use the static DefaultConsole")]
 			public void WriteLine(string format, params object[] args)
 			{
 				Console.WriteLine(format, args);
@@ -56,6 +62,7 @@ namespace Chiroptera.Base
                 WriteLine(new ColorMessage(">>> " + String.Format(format, args), new List<ColorMessage.MetaData>() { new ColorMessage.MetaData(0, Color.FromSystemColor(System.Drawing.Color.White), Color.FromSystemColor(System.Drawing.Color.Blue)) }));
             }
 
+            [Obsolete("Don't use the static DefaultConsole")]
 			public void WriteLineLow(string format, params object[] args)
 			{
 				Console.WriteLine(format, args);
@@ -78,9 +85,29 @@ namespace Chiroptera.Base
 				get { return ""; }
 				set { }
 			}
+            
+            public SavedSession Session
+            {
+                get { throw new NotImplementedException(); }
+            }
 
-			#endregion
-		}
+            public void SetStatus(string status)
+            {
+                throw new NotImplementedException();
+            }
+
+            #endregion
+
+            #region IChiConsole Members
+
+            [Obsolete("Don't use the static DefaultConsole")]
+            public void WriteError(string format, params object[] args)
+            {
+                throw new NotImplementedException();
+            }
+
+            #endregion
+        }
 		#endregion
 
 		static IChiConsole s_console = new DefaultChiConsole();
