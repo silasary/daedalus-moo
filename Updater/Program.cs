@@ -18,7 +18,7 @@ namespace Updater  // Generic auto-updater.
                 Generate = true;
             if (args.Contains("-e"))
                 Elevated = true;
-            string[] manifests = Directory.GetFiles(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "*.updatemanifest");
+            string[] manifests = Directory.GetFiles(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "*.updatemanifest",SearchOption.AllDirectories);
             if (manifests.Length == 0)
             {
                 MessageBox.Show("Update Manifest not found.");
@@ -27,8 +27,10 @@ namespace Updater  // Generic auto-updater.
             WebClient client = new WebClient();
             for (int i = 0; i < manifests.Length; i++)
             {
+                Environment.CurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 string file = manifests[i];
                 string[] manifest = File.ReadAllLines(file);
+                Environment.CurrentDirectory = Path.GetDirectoryName(file);
                 bool downloaded = false;
                 int mode = 0;
                 string address = "";
@@ -42,11 +44,11 @@ namespace Updater  // Generic auto-updater.
                     switch (key.ToLowerInvariant())
                     {
                         case ("manifest"):
-                            if (!downloaded) // Download the latest version of the manifest, and start from the top.
+                            if (!Generate && !downloaded) // Download the latest version of the manifest, and start from the top.
                             {
                                 try
                                 {
-                                    client.DownloadFile(value, file);
+                                    client.DownloadFile(value, Path.GetFileName(file));
                                 }
 
                                 catch (WebException v)
@@ -82,7 +84,7 @@ namespace Updater  // Generic auto-updater.
 
                                 downloaded = true;
                                 l = 0;
-                                manifest = File.ReadAllLines(file);
+                                manifest = File.ReadAllLines(Path.GetFileName(file));
                             }
                             break;
                         case ("file"):
