@@ -28,13 +28,20 @@ namespace Daedalus.MCP
         public MCPHandler(Connection connection)
         {
             _connection = connection;
-            Packages.Add(new Packages.MCPNegotiate(this));
-            Packages.Add(new Packages.AwnsStatus(this));
-            Packages.Add(new Packages.VMooUserlist(this));
-            //Packages.Add(new Packages.VMooSmartComplete(this));
-            Packages.Add(new Packages.SimpleEdit(this));
-            Packages.Add(new Packages.VMooClient(this));
-            Packages.Add(new Packages.Multiplex(this));
+            connection.ServicesDispatcher.RegisterMessageHandler(HandleMessage);
+        }
+        public ColorMessage HandleMessage(ColorMessage colorMessage)
+        {
+            if (colorMessage.Text.StartsWith("#$#")) // Out of Band messages.
+            {
+                ReceiveOOB(colorMessage.Text);
+                return null;
+            }
+            else if (colorMessage.Text.StartsWith("#$\""))
+            {
+                colorMessage.SetText(colorMessage.Text.Substring(3));
+            }
+            return colorMessage;
         }
 
         internal void ReceiveOOB(string s)
@@ -175,6 +182,7 @@ namespace Daedalus.MCP
                     if (!VersionSupported(KeyVals["version"], KeyVals["to"], "2.1", "2.1"))
                         return; // Sorry, wrong version.
                     AuthenticationKey = new Random().NextDouble().GetHashCode().ToString();
+                    LoadPackages(); // Now we know the connection supports MCP, let's load the packages.
                     SendOOB("#$#mcp authentication-key: " + AuthenticationKey + " version: 2.1 to: 2.1");
                     foreach (MCPPackage package in Packages)
                     {
@@ -202,6 +210,17 @@ namespace Daedalus.MCP
         public void RegisterMultilineHandler(string DataTag, string FauxCommand)
         {
             this.Multilines.Add(DataTag.Trim(), FauxCommand);
+        }
+
+        private void LoadPackages()
+        {
+            Packages.Add(new Packages.MCPNegotiate(this));
+            Packages.Add(new Packages.AwnsStatus(this));
+            Packages.Add(new Packages.VMooUserlist(this));
+            //Packages.Add(new Packages.VMooSmartComplete(this));
+            Packages.Add(new Packages.SimpleEdit(this));
+            Packages.Add(new Packages.VMooClient(this));
+            Packages.Add(new Packages.Multiplex(this));
         }
     }
 }

@@ -11,19 +11,18 @@ namespace Daedalus
     public class Connection : IChiConsole, INetwork, Daedalus.IConnection
     {
         WorldForm form;
-        BaseServicesDispatcher ServicesDispatcher;
+        BaseServicesDispatcher servicesDispatcher;
         CommandManager commandManager;
         Telnet telnet;
         SavedSession session;
 
         public SavedSession Session { get { return session; } }
+        public BaseServicesDispatcher ServicesDispatcher { get { return servicesDispatcher; } }
 
         public WorldForm Form { get { return form; } }
 
         Queue<string> m_receiveQueue = new Queue<string>();
-        Queue<string> m_receiveOOBQueue = new Queue<string>();
         bool m_receiveEventSent = false;
-        bool m_receiveOOBEventSent = false;
 
         delegate void ReceiveEventDelegate();
 
@@ -33,7 +32,7 @@ namespace Daedalus
         {
             this.form = form;
             
-            ServicesDispatcher = new BaseServicesDispatcher(this);
+            servicesDispatcher = new BaseServicesDispatcher(this);
 
             commandManager = new CommandManager(ServicesDispatcher);
             new DefaultCommands(commandManager, this);
@@ -246,30 +245,11 @@ namespace Daedalus
         {
             lock (m_receiveQueue)
             {
-                if (data.StartsWith("#$#")) // Out of Band messages.
+                m_receiveQueue.Enqueue(data);
+                if (m_receiveEventSent == false)
                 {
-                    lock (m_receiveOOBQueue)
-                    {
-                        m_receiveOOBQueue.Enqueue(data);
-                        if (m_receiveOOBEventSent == false)
-                        {
-                            m_receiveOOBEventSent = true;
-                            Form.BeginInvoke(new ReceiveEventDelegate(ReceiveOOBBulk), null);
-                        }
-                    }
-                }
-                else
-                {
-                    if (data.StartsWith("#$\"")) // unquote quoted OOB lines.
-                    {
-                        data = data.Remove(0, 3);
-                    }
-                    m_receiveQueue.Enqueue(data);
-                    if (m_receiveEventSent == false)
-                    {
-                        m_receiveEventSent = true;
-                        Form.BeginInvoke(new ReceiveEventDelegate(ReceiveEventBulk), null);
-                    }
+                    m_receiveEventSent = true;
+                    Form.BeginInvoke(new ReceiveEventDelegate(ReceiveEventBulk), null);
                 }
             }
         }
@@ -313,32 +293,6 @@ namespace Daedalus
                     return;
 
                 WriteLine(colorMsg);
-            }
-        }
-
-        void ReceiveOOBBulk()
-        {
-            string[] arr = new string[] { };
-
-            lock (m_receiveOOBQueue)
-            {
-                try
-                {
-                    arr = m_receiveOOBQueue.ToArray();
-                    m_receiveOOBQueue.Clear();
-                }
-                catch { }
-                m_receiveOOBEventSent = false;
-            }
-
-            //ChiConsole.WriteLineLow("Got {0} OOB lines", arr.Length);
-            foreach (string s in arr)
-            {
-                try
-                {
-                    m_MCP.ReceiveOOB(s);
-                }
-                catch { } // We don't care if an OOB line fails.
             }
         }
 
