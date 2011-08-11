@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
+    <Compile Include="DefaultCommands.cs" />
     <Compile Include="Forms\ErrorDialog.cs">
       <SubType>Form</SubType>
     </Compile>

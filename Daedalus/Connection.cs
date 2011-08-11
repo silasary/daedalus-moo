@@ -36,6 +36,7 @@ namespace Daedalus
             ServicesDispatcher = new BaseServicesDispatcher(this);
 
             commandManager = new CommandManager(ServicesDispatcher);
+            new DefaultCommands(commandManager, this);
 
             telnet = new Telnet();
             telnet.connectEvent += new Telnet.ConnectDelegate(_ConnectEvent);
