@@ -16,6 +16,7 @@ namespace Chiroptera.Base
 	public delegate	string InputEventDelegate(string input);
 	public delegate ColorMessage OutputEventDelegate(ColorMessage colorMessage);
 	public delegate bool KeyDownEventDelegate(System.Windows.Forms.Keys ckey);
+    public delegate bool LinkClickedDelegate(string link);
 
 	public class BaseServicesDispatcher
 	{
@@ -27,6 +28,8 @@ namespace Chiroptera.Base
 		event InputEventDelegate InputEvent;
 		event OutputEventDelegate OutputEvent;
 		event KeyDownEventDelegate KeyDownEvent;
+        event LinkClickedDelegate LinkClicked;
+
         private IChiConsole console;
         public IChiConsole Console { get { return console; } }
 		public BaseServicesDispatcher(IChiConsole console)
@@ -69,11 +72,15 @@ namespace Chiroptera.Base
 			OutputEvent += handler;
 		}
 
-		public void RegisterKeyDownHandler(KeyDownEventDelegate handler)
-		{
-			KeyDownEvent += handler;
-		}
+        public void RegisterKeyDownHandler(KeyDownEventDelegate handler)
+        {
+            KeyDownEvent += handler;
+        }
 
+        public void RegisterLinkClickedHandler(LinkClickedDelegate handler)
+        {
+            LinkClicked += handler;
+        }
 
 		public void DispatchConnectEvent(Exception exception)
 		{
@@ -237,5 +244,28 @@ namespace Chiroptera.Base
 			return ret;
 		}
 
+        public bool DispatchLinkClicked(string Link)
+        {
+            if (LinkClicked == null)
+                return false;
+
+            bool ret = false;
+            foreach (LinkClickedDelegate del in LinkClicked.GetInvocationList())
+            {
+                try
+                {
+                    ret = del(Link);
+                }
+                catch (Exception e)
+                {
+                    ChiConsole.WriteError("Error calling output handler", e);
+                }
+
+                if (ret == true)
+                    break;
+            }
+
+            return ret;
+        }
 	}
 }

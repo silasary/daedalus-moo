@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Chiroptera.Base;
+using System.IO;
+using System.Reflection;
 
 namespace Daedalus
 {
@@ -16,6 +18,7 @@ namespace Daedalus
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
             if (!System.Diagnostics.Debugger.IsAttached)
             {
                 Application.ThreadException += Application_ThreadException;
@@ -27,6 +30,14 @@ namespace Daedalus
                 form.Show();
 
             Application.Run();
+        }
+
+        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            string dll = args.Name.Split(',')[0] + ".*";
+            dll = Directory.GetFiles(".", dll, SearchOption.AllDirectories).FirstOrDefault();
+            dll = Path.GetFullPath(dll);
+            return Assembly.LoadFile(dll);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
