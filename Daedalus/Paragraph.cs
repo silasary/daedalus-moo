@@ -23,6 +23,7 @@ namespace Chiroptera.Win
 			public System.Drawing.Color m_fgColor;
 			public System.Drawing.Color m_bgColor;
 			public bool m_isLink = false;
+            public string linkurl;
 
 			public MetaData(ColorMessage.MetaData cmMeta)
 			{
@@ -120,6 +121,7 @@ namespace Chiroptera.Win
 
 					MetaData md = new MetaData(matchIdx, currentTextColor, currentBackgroundColor);
 					md.m_isLink = true;
+                    md.linkurl = match.Value;
 
 					metaDataList.Insert(i, md);
 

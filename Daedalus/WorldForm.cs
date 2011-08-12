@@ -87,6 +87,22 @@ namespace Daedalus
             TextViewControl.TabStop = false;
             splitContainer2.Panel1.Controls.Add(TextViewControl);
             historyTextBox1.ListenOther(TextViewControl); // Pass the keypresses.
+            TextView.LinkClicked += new LinkClickDelegate(TextView_LinkClicked);
+        }
+
+        void TextView_LinkClicked(string link)
+        {
+            string proto = link.Substring(0, link.IndexOf(':'));
+            switch (proto)
+            {
+                case "http":
+                case "https":
+                    System.Diagnostics.Process.Start(link); // Leave that to the default browser.
+                    break;
+                default:
+                    _connection.ServicesDispatcher.DispatchLinkClicked(link);
+                    break;
+            }
         }
 
         public ParagraphContainer ParagraphContainer

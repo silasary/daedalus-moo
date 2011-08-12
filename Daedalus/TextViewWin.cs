@@ -1009,6 +1009,8 @@ namespace Chiroptera.Win
 				int start = p.m_meta[metaIndex].m_index;
 				int len = p.m_meta[metaIndex + 1].m_index - p.m_meta[metaIndex].m_index;
 				string link = p.m_text.Substring(start, len);
+                if (p.m_meta[metaIndex].linkurl != String.Empty)
+                    link = p.m_meta[metaIndex].linkurl;
 
 				if (LinkClicked != null)
 					LinkClicked(link);
