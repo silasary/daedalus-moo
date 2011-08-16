@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.0.2.0")]
-[assembly: AssemblyFileVersion("0.0.2.28")] 
+[assembly: AssemblyFileVersion("0.0.3.33")] 
 // We bump the revision whenever we do any change.
 // We bump the build when we push a public build.
 // We bump the Minor version whenever we change a public interface.

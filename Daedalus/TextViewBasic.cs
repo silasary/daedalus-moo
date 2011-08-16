@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Daedalus.TextView;
 using Chiroptera.Win;
 
-#warning TODO: Stop using this hacked together custom control, and see if I can wrap a RTFTextBox.
+// TODO Stop using this hacked together custom control, and see if I can wrap a RTFTextBox.
 namespace Daedalus
 {
     public partial class TextViewBasic : UserControl, ITextView

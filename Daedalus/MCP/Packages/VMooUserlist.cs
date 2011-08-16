@@ -81,7 +81,7 @@ namespace Daedalus.MCP.Packages
                         case '-': // Logged Off
                             Players.Remove(player = Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])));
                             UserList.Items.Clear();
-                            UserList.Items.AddRange(Players.Select(p => p.LVI).ToArray()); // TODO:  Switch to using a virtual ListView.
+                            UserList.Items.AddRange(Players.Select(p => p.LVI).ToArray()); // TODO: Switch to using a virtual ListView.
                             break;
                         case '<': // They went idle
 

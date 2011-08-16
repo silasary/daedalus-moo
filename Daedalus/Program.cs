@@ -28,13 +28,19 @@ namespace Daedalus
             MainForm form = new MainForm();
             if (Settings.Default.BasicMode != true)
                 form.Show();
-
+            foreach (SavedSession session in SessionManager.Default.Sessions)
+            {
+                if (session.AutoConnect)
+                    form.NewWorldWindow(session);
+            }
             Application.Run();
         }
 
+        // This nifty code searches for Assemblies, should they fail to load via the normal procedures.
+        // This happens if a Plugin within a subfolder is attempting to load an assembly within that subfolder.
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            string dll = args.Name.Split(',')[0] + ".*";
+            string dll = args.Name.Split(',')[0] + ".*"; // TODO: Check that the file found is an EXE or DLL.
             dll = Directory.GetFiles(".", dll, SearchOption.AllDirectories).FirstOrDefault();
             dll = Path.GetFullPath(dll);
             return Assembly.LoadFile(dll);

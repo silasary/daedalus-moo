@@ -168,5 +168,10 @@ namespace Daedalus
         private void MainForm_Load(object sender, EventArgs e)
         {
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AboutBox().ShowDialog(this);
+        }
     }
 }
