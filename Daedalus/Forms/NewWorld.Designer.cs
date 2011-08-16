@@ -37,9 +37,12 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.UsernameTextBox = new System.Windows.Forms.TextBox();
             this.PasswordtextBox = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ServerLabel = new System.Windows.Forms.Label();
             PortLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // ServerLabel
@@ -125,11 +128,32 @@
             this.PasswordtextBox.GotFocus += new System.EventHandler(this.PasswordtextBox_GotFocus);
             this.PasswordtextBox.LostFocus += new System.EventHandler(this.PasswordtextBox_LostFocus);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkBox1);
+            this.groupBox2.Location = new System.Drawing.Point(15, 131);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(266, 118);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Options";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(6, 19);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(91, 17);
+            this.checkBox1.TabIndex = 0;
+            this.checkBox1.Text = "Auto-Connect";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // NewWorld
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(293, 134);
+            this.ClientSize = new System.Drawing.Size(293, 261);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(PortLabel);
             this.Controls.Add(ServerLabel);
@@ -142,6 +166,8 @@
             this.Load += new System.EventHandler(this.NewWorld_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,5 +182,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox PasswordtextBox;
         private System.Windows.Forms.TextBox UsernameTextBox;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

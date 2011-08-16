@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace Chiroptera.Base
 {
     [Serializable]
-    public class SavedSession
+    public class SavedSession : INotifyPropertyChanged
     {
         private string server;
 
@@ -18,7 +19,11 @@ namespace Chiroptera.Base
                     return "";
                 return server;
             }
-            set { server = value; }
+            set
+            {
+                server = value;
+                OnPropertyChanged("Server");
+            }
         }
         private string port;
 
@@ -28,9 +33,13 @@ namespace Chiroptera.Base
             {
                 if (port == "" || port == null)
                     return "7777";
-                return port; 
+                return port;
             }
-            set { port = value; }
+            set
+            {
+                port = value;
+                OnPropertyChanged("Port");
+            }
         }
         private string username;
 
@@ -42,7 +51,11 @@ namespace Chiroptera.Base
                     return "";
                 return username;
             }
-            set { username = value; }
+            set
+            {
+                username = value;
+                OnPropertyChanged("Username");
+            }
         }
 
         private string password;
@@ -55,7 +68,11 @@ namespace Chiroptera.Base
                     return "";
                 return password;
             }
-            set { password = value; }
+            set
+            {
+                password = value;
+                OnPropertyChanged("Password");
+            }
         }
         //public string PasswordEncrypted {get{
 
@@ -63,13 +80,18 @@ namespace Chiroptera.Base
 
         public string Name
         {
-            get { 
+            get
+            {
                 if (name == "" || name == null)
-                    return Server + ":" + Port; 
+                    return Server + ":" + Port;
                 return name;
-                
+
             }
-            set { name = value; }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         private string loginString;
@@ -85,8 +107,40 @@ namespace Chiroptera.Base
             set
             {
                 loginString = value;
+                OnPropertyChanged("LoginString");
             }
         }
 
+        private bool autoConnect;
+        /// <summary>
+        /// Whether to automatically launch this session when loading Daedalus.
+        /// </summary>
+        public bool AutoConnect
+        {
+            get { return autoConnect; }
+            set
+            {
+                autoConnect = value;
+                OnPropertyChanged("AutoConnect");
+            }
+        }
+
+
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(String propname)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propname));
+            }
+            if ((propname == "Server" || propname == "Port") && (name == "" || name == null))
+                PropertyChanged(this, new PropertyChangedEventArgs("Name"));
+        }
+
+
+        #endregion
     }
 }

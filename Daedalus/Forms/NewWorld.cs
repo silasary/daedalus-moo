@@ -27,6 +27,12 @@ namespace Daedalus.Forms
                 UsernameTextBox.DataBindings.Add("Text", session, "Username");
                 PasswordtextBox.DataBindings.Clear();
                 PasswordtextBox.DataBindings.Add("Text", session, "Password");
+                checkBox1.DataBindings.Clear();
+                checkBox1.DataBindings.Add("Checked", session, "AutoConnect");
+                if (SessionManager.Default.Sessions.Contains(session))
+                    Connect.Text = "Save";
+                else
+                    Connect.Text = "Connect";
             }
         }
         public NewWorld()

@@ -26,10 +26,7 @@ namespace Daedalus.PluginModel
                        }
                        catch (Exception v)
                        {
-                           if (File.Exists(Path.Combine(Path.GetDirectoryName(dll), "disabled." + Path.GetFileName(dll))))
-                               File.Delete(Path.Combine(Path.GetDirectoryName(dll), "disabled." + Path.GetFileName(dll)));
-                           File.Move(dll, Path.Combine(Path.GetDirectoryName(dll), "disabled." + Path.GetFileName(dll)));
-                           File.WriteAllText(Path.Combine(Path.GetDirectoryName(dll), "disabled." + Path.GetFileName(dll) + ".log"), v.ToString());
+                           File.WriteAllText(Path.Combine(Path.GetDirectoryName(dll), Path.GetFileName(dll) + ".log"), v.ToString());
                        }
                    }
                    plugins = Plugins.ToArray();
