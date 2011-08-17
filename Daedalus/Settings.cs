@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.ComponentModel;
 namespace Daedalus
 {
-    public partial class Settings
+    public partial class Settings : INotifyPropertyChanged
     {
         private string clientName;
         public string ClientName
@@ -19,6 +19,7 @@ namespace Daedalus
             set
             {
                 clientName = value;
+                OnPropertyChanged("ClientName");
             }
         }
 
@@ -32,6 +33,7 @@ namespace Daedalus
             set
             {
                 basicMode = value;
+                OnPropertyChanged("BasicMode");
             }
         }
 
@@ -47,6 +49,7 @@ namespace Daedalus
             set
             {
                 basicModePort = value;
+                OnPropertyChanged("BasicModePort");
             }
         }
 
@@ -62,6 +65,7 @@ namespace Daedalus
             set
             {
                 basicModeServer = value;
+                OnPropertyChanged("BasicModeServer");
             }
         }
 
@@ -69,8 +73,23 @@ namespace Daedalus
         public bool UseVMooIcons
         {
             get { return vmooIcons; }
-            set { vmooIcons = value; }
+            set { vmooIcons = value; OnPropertyChanged("UseVMooIcons"); }
         }
 
+
+        #region INotifyPropertyChanged Members
+        private bool changed;  // For the serializer.
+        [field: NonSerialized]
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged(String propname)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propname));
+            }
+            changed = true;
+        }
+        #endregion
     }
 }

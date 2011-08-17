@@ -183,8 +183,22 @@ namespace Daedalus
         public void SetStatus(string status)
         {
             form.StatusLabel.Text = status;
+            form.StatusLabel.Tag = new Chiroptera.Win.Paragraph.MetaData(0, System.Drawing.Color.Black, System.Drawing.Color.White);
+            UpdateStatusbarData();
         }
-        
+
+        public void SetStatus(string status, object tag)
+        {
+            form.StatusLabel.Text = status;
+            form.StatusLabel.Tag = tag;
+            UpdateStatusbarData();
+        }
+
+        private void UpdateStatusbarData()
+        {
+            form.StatusLabel.ForeColor = ((Chiroptera.Win.Paragraph.MetaData)form.StatusLabel.Tag).m_fgColor;
+        }
+
         public void AddWidgit(System.Windows.Forms.Control control)
         {
             if (form.SidebarCollapsed)
