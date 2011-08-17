@@ -30,20 +30,20 @@
         {
             this.components = new System.ComponentModel.Container();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.CloseButton = new System.Windows.Forms.Button();
-            this.InfoBox = new System.Windows.Forms.GroupBox();
-            this.NewWorldButton = new System.Windows.Forms.Button();
-            this.OpenButton = new System.Windows.Forms.Button();
-            this.labelServer = new System.Windows.Forms.Label();
-            this.labelPort = new System.Windows.Forms.Label();
-            this.labelUsername = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.InfoBox.SuspendLayout();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.CloseButton = new System.Windows.Forms.Button();
+            this.InfoBox = new System.Windows.Forms.GroupBox();
+            this.labelUsername = new System.Windows.Forms.Label();
+            this.labelPort = new System.Windows.Forms.Label();
+            this.labelServer = new System.Windows.Forms.Label();
+            this.NewWorldButton = new System.Windows.Forms.Button();
+            this.OpenButton = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
+            this.InfoBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // listView1
@@ -58,83 +58,6 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.listView1_RetrieveVirtualItem);
             this.listView1.DoubleClick += new System.EventHandler(this.listView1_DoubleClick);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(32, 32);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // CloseButton
-            // 
-            this.CloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CloseButton.Location = new System.Drawing.Point(295, 295);
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(75, 23);
-            this.CloseButton.TabIndex = 1;
-            this.CloseButton.Text = "Cancel";
-            this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // InfoBox
-            // 
-            this.InfoBox.Controls.Add(this.labelUsername);
-            this.InfoBox.Controls.Add(this.labelPort);
-            this.InfoBox.Controls.Add(this.labelServer);
-            this.InfoBox.Controls.Add(this.NewWorldButton);
-            this.InfoBox.Location = new System.Drawing.Point(295, 13);
-            this.InfoBox.Name = "InfoBox";
-            this.InfoBox.Size = new System.Drawing.Size(157, 276);
-            this.InfoBox.TabIndex = 2;
-            this.InfoBox.TabStop = false;
-            this.InfoBox.Text = "Information";
-            // 
-            // NewWorldButton
-            // 
-            this.NewWorldButton.Location = new System.Drawing.Point(7, 247);
-            this.NewWorldButton.Name = "NewWorldButton";
-            this.NewWorldButton.Size = new System.Drawing.Size(144, 23);
-            this.NewWorldButton.TabIndex = 0;
-            this.NewWorldButton.Text = "New World";
-            this.NewWorldButton.UseVisualStyleBackColor = true;
-            this.NewWorldButton.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // OpenButton
-            // 
-            this.OpenButton.Location = new System.Drawing.Point(377, 295);
-            this.OpenButton.Name = "OpenButton";
-            this.OpenButton.Size = new System.Drawing.Size(75, 23);
-            this.OpenButton.TabIndex = 1;
-            this.OpenButton.Text = "Open";
-            this.OpenButton.UseVisualStyleBackColor = true;
-            this.OpenButton.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // labelServer
-            // 
-            this.labelServer.AutoSize = true;
-            this.labelServer.Location = new System.Drawing.Point(7, 20);
-            this.labelServer.Name = "labelServer";
-            this.labelServer.Size = new System.Drawing.Size(44, 13);
-            this.labelServer.TabIndex = 1;
-            this.labelServer.Text = "Server: ";
-            // 
-            // labelPort
-            // 
-            this.labelPort.AutoSize = true;
-            this.labelPort.Location = new System.Drawing.Point(19, 33);
-            this.labelPort.Name = "labelPort";
-            this.labelPort.Size = new System.Drawing.Size(32, 13);
-            this.labelPort.TabIndex = 2;
-            this.labelPort.Text = "Port: ";
-            // 
-            // labelUsername
-            // 
-            this.labelUsername.AutoSize = true;
-            this.labelUsername.Location = new System.Drawing.Point(6, 66);
-            this.labelUsername.Name = "labelUsername";
-            this.labelUsername.Size = new System.Drawing.Size(58, 13);
-            this.labelUsername.TabIndex = 3;
-            this.labelUsername.Text = "Username:";
             // 
             // contextMenuStrip1
             // 
@@ -166,6 +89,83 @@
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(32, 32);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // CloseButton
+            // 
+            this.CloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CloseButton.Location = new System.Drawing.Point(295, 295);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(75, 23);
+            this.CloseButton.TabIndex = 1;
+            this.CloseButton.Text = "Cancel";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // InfoBox
+            // 
+            this.InfoBox.Controls.Add(this.labelUsername);
+            this.InfoBox.Controls.Add(this.labelPort);
+            this.InfoBox.Controls.Add(this.labelServer);
+            this.InfoBox.Controls.Add(this.NewWorldButton);
+            this.InfoBox.Location = new System.Drawing.Point(295, 13);
+            this.InfoBox.Name = "InfoBox";
+            this.InfoBox.Size = new System.Drawing.Size(157, 276);
+            this.InfoBox.TabIndex = 2;
+            this.InfoBox.TabStop = false;
+            this.InfoBox.Text = "Information";
+            // 
+            // labelUsername
+            // 
+            this.labelUsername.AutoSize = true;
+            this.labelUsername.Location = new System.Drawing.Point(6, 66);
+            this.labelUsername.Name = "labelUsername";
+            this.labelUsername.Size = new System.Drawing.Size(58, 13);
+            this.labelUsername.TabIndex = 3;
+            this.labelUsername.Text = "Username:";
+            // 
+            // labelPort
+            // 
+            this.labelPort.AutoSize = true;
+            this.labelPort.Location = new System.Drawing.Point(19, 33);
+            this.labelPort.Name = "labelPort";
+            this.labelPort.Size = new System.Drawing.Size(32, 13);
+            this.labelPort.TabIndex = 2;
+            this.labelPort.Text = "Port: ";
+            // 
+            // labelServer
+            // 
+            this.labelServer.AutoSize = true;
+            this.labelServer.Location = new System.Drawing.Point(7, 20);
+            this.labelServer.Name = "labelServer";
+            this.labelServer.Size = new System.Drawing.Size(44, 13);
+            this.labelServer.TabIndex = 1;
+            this.labelServer.Text = "Server: ";
+            // 
+            // NewWorldButton
+            // 
+            this.NewWorldButton.Location = new System.Drawing.Point(7, 247);
+            this.NewWorldButton.Name = "NewWorldButton";
+            this.NewWorldButton.Size = new System.Drawing.Size(144, 23);
+            this.NewWorldButton.TabIndex = 0;
+            this.NewWorldButton.Text = "&New World";
+            this.NewWorldButton.UseVisualStyleBackColor = true;
+            this.NewWorldButton.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // OpenButton
+            // 
+            this.OpenButton.Location = new System.Drawing.Point(377, 295);
+            this.OpenButton.Name = "OpenButton";
+            this.OpenButton.Size = new System.Drawing.Size(75, 23);
+            this.OpenButton.TabIndex = 1;
+            this.OpenButton.Text = "Open";
+            this.OpenButton.UseVisualStyleBackColor = true;
+            this.OpenButton.Click += new System.EventHandler(this.button2_Click);
+            // 
             // WorldSelect
             // 
             this.AcceptButton = this.OpenButton;
@@ -178,9 +178,9 @@
             this.Controls.Add(this.listView1);
             this.Name = "WorldSelect";
             this.Text = "WorldSelect";
+            this.contextMenuStrip1.ResumeLayout(false);
             this.InfoBox.ResumeLayout(false);
             this.InfoBox.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

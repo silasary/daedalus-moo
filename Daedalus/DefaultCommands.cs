@@ -19,8 +19,10 @@ namespace Daedalus
         {
             this.commandManager = commandManager;
             this.connection = connection;
-            commandManager.AddCommand("connect", ConnectCommandHandler, "Connect to a MOO", 
+            commandManager.AddCommand("connect", ConnectCommandHandler, "Connect to a MOO",
                     "usage: /connect [host [port]]\n\nConnects to a MOO or MUD.");
+            commandManager.AddCommand("reconnect", ReconnectCommandHandler, "Reconnect to the MOO",
+        "usage: /reconnect\n\nReconnects to the MOO or MUD.");
             commandManager.AddCommand("quit", QuitCommandHandler, "Quits " + Settings.Default.ClientName,
                     "usage: /quit\n\nQuits " + Settings.Default.ClientName);
 
@@ -54,6 +56,12 @@ namespace Daedalus
         int QuitCommandHandler(string input)
         {
             Application.Exit();
+            return 0;
+        }
+        int ReconnectCommandHandler(string input)
+        {
+            connection.Disconnect();
+            connection.Connect(connection.Session);
             return 0;
         }
     }

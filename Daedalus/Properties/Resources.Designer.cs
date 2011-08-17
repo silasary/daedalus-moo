@@ -66,5 +66,19 @@ namespace Daedalus.Properties {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap Userlist {
+            get {
+                object obj = ResourceManager.GetObject("Userlist", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Userlist_VMoo {
+            get {
+                object obj = ResourceManager.GetObject("Userlist_VMoo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
