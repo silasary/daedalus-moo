@@ -65,6 +65,12 @@ namespace Daedalus
             }
         }
 
+        private bool vmooIcons;
+        public bool UseVMooIcons
+        {
+            get { return vmooIcons; }
+            set { vmooIcons = value; }
+        }
 
     }
 }

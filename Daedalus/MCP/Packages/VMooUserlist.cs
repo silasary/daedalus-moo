@@ -10,6 +10,9 @@ namespace Daedalus.MCP.Packages
     {
         MCPHandler Handler;
         Connection connection;
+        ImageList icons;
+
+
         public VMooUserlist(MCPHandler handler)
         {
             Handler = handler;
@@ -18,6 +21,7 @@ namespace Daedalus.MCP.Packages
         ListView UserList;
         MOO.MOOObject you = new Daedalus.MOO.MOOObject("#-1");
         string[] Fields;
+        string[] Icons;
         List<UserListPlayer> Players = new List<UserListPlayer>();
 
         #region MCPPackage Members
@@ -59,6 +63,10 @@ namespace Daedalus.MCP.Packages
                     UserList.Columns.Clear();
                     Fields = MOO.Interop.ParseMOOstruct(KeyVals["fields"]).Select(o => o as string).ToArray(); // Protocol says this will be a list of strings.
                 }
+                if (MCPHandler.ContainsKeys(KeyVals, "icons"))
+                {
+                    Icons = MOO.Interop.ParseMOOstruct(KeyVals["icons"]).Select(o => o as string).ToArray();
+                }
                 if (MCPHandler.ContainsKeys(KeyVals, "d"))
                 {
                     char modifier = KeyVals["d"][0];
@@ -71,6 +79,7 @@ namespace Daedalus.MCP.Packages
                             foreach (List<object> row in Data)
                             {
                                 Players.Add(player = new UserListPlayer(Fields, row));
+                                player.props["Icon"] = Icons[(int)player.props["Icon"] - 1];
                                 UserList.Items.Add(player.LVI);
                             }
                             break;
@@ -115,8 +124,15 @@ namespace Daedalus.MCP.Packages
             UserList.View = View.List;
             UserList.Columns.Add("Name");
             connection.AddWidgit(UserList);
+            icons = new ImageList();
+            if (Settings.Default.UseVMooIcons)
+                icons.Images.AddStrip(Properties.Resources.Userlist_VMoo);
+            else
+                icons.Images.AddStrip(Daedalus.Properties.Resources.Userlist);
+            SetImageKeys(icons);
+            UserList.SmallImageList = icons;
+            
         }
-
         #endregion
         
         class UserListPlayer
@@ -134,7 +150,7 @@ namespace Daedalus.MCP.Packages
             {
                 get
                 {
-                    return new ListViewItem(props["Name"] as string);
+                    return new ListViewItem(props["Name"] as string) { ImageKey = (string)this.props["Icon"] };
                 }
             }
         }
@@ -144,9 +160,28 @@ namespace Daedalus.MCP.Packages
 
         public void Disconnected()
         {
-            throw new NotImplementedException();
+            this.UserList.Items.Clear();
         }
 
         #endregion
+
+        private static void SetImageKeys(ImageList icons)
+        {
+            // We may want to make this configurable later on.
+            icons.Images.SetKeyName(0, "Blank");
+            icons.Images.SetKeyName(1, "Idle");
+            icons.Images.SetKeyName(2, "Away");
+            icons.Images.SetKeyName(3, "Idle+Away");
+            icons.Images.SetKeyName(4, "Friend");
+            icons.Images.SetKeyName(5, "Newbie");
+            icons.Images.SetKeyName(6, "Inhabitant");
+            icons.Images.SetKeyName(7, "Inhabitant+");
+            icons.Images.SetKeyName(8, "Schooled");
+            icons.Images.SetKeyName(9, "Key");
+            icons.Images.SetKeyName(10, "Star");
+            icons.Images.SetKeyName(11, "Wizard");
+
+        }
+
     }
 }

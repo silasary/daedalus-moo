@@ -51,6 +51,8 @@ namespace Daedalus.Forms
                 }
                 this.Close();
             }
+            else
+                MessageBox.Show("No world selected.");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -61,6 +63,7 @@ namespace Daedalus.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Close();
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
