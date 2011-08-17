@@ -223,16 +223,15 @@ namespace Daedalus.MCP
 
         private void LoadPackages()
         {
-            
             Packages.AddRange(PluginModel.PluginLoader.ExternalMCPPackages(this));
             //the above goes first, so that external packages can override the internal ones if needed.
             Packages.Add(new Packages.MCPNegotiate(this));
             Packages.Add(new Packages.AwnsStatus(this));
             Packages.Add(new Packages.VMooUserlist(this));
-            //Packages.Add(new Packages.VMooSmartComplete(this));
             Packages.Add(new Packages.SimpleEdit(this));
             Packages.Add(new Packages.VMooClient(this));
             Packages.Add(new Packages.Multiplex(this));
+            //Packages.Add(new Packages.BerylliumStatus(this));
         }
     }
 }

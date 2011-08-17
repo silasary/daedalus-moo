@@ -14,6 +14,8 @@ namespace Daedalus
 
         public void Save()
         {
+            if (!changed)
+                return;
             XmlSerializer serializer = new XmlSerializer(this.GetType(), SerializedTypes.ToArray());
             Stream stream = File.OpenWrite("Settings.xml");
             serializer.Serialize(stream, this);
@@ -33,6 +35,7 @@ namespace Daedalus
             {
                 stream.Close();
             }
+            changed = false;
         }
 
         private static Settings _default;
@@ -65,6 +68,7 @@ namespace Daedalus
                     else
                     {
                         _default = new Settings();
+                        _default.changed = true;
                     }
                 }
                 return _default;

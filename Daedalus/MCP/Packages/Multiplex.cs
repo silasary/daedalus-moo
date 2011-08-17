@@ -241,7 +241,10 @@ namespace Daedalus.MCP.Packages
         {
             console.SetStatus(status);
         }
-        
+        public void SetStatus(string status, object metadata)
+        {
+            console.SetStatus(status, metadata);
+        }
         public BaseServicesDispatcher ServicesDispatcher
         {
             get { return console.ServicesDispatcher; }

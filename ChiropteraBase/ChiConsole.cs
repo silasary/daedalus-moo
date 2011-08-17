@@ -26,7 +26,7 @@ namespace Chiroptera.Base
 		}
         SavedSession Session { get; }
         void SetStatus(string status);
-
+        void SetStatus(string status, object metadata);
 	}
 
 	public static class ChiConsole
@@ -95,10 +95,11 @@ namespace Chiroptera.Base
             {
                 throw new NotImplementedException();
             }
-
-            #endregion
-
-            #region IChiConsole Members
+            
+            public void SetStatus(string status, object metadata)
+            {
+                throw new NotImplementedException();
+            }
 
             [Obsolete("Don't use the static DefaultConsole")]
             public void WriteError(string format, params object[] args)

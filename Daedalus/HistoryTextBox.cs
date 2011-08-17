@@ -123,7 +123,13 @@ namespace Chiroptera.Win
             else if (!this.Focused) // Because the textbox isn't going to do it for us.
             {
                 this.Focus();
-                this.Text += e.KeyChar;
+                
+                if (e.KeyChar >= 32) // Printable character, add it to the textbox.
+                    this.Text += e.KeyChar;
+                else if (e.KeyChar == (char)8) // Backspace.
+                    this.Text = this.Text.Substring(0, this.Text.Length - 2);
+                // All other control characters should be ignored.
+                
                 this.SelectionStart = this.Text.Length;
             }
 			base.OnKeyPress(e);
@@ -278,12 +284,13 @@ namespace Chiroptera.Win
 		}
 
 		// it's spelled k-l-u-d-g-e
-		[System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
+        [System.Security.Permissions.PermissionSet(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
         [System.Diagnostics.DebuggerStepThrough]
-		protected override void WndProc(ref Message m)
-		{
-			const int WM_PASTE = 0x0302;
-            try {
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_PASTE = 770; //0x0302;
+            try
+            {
                 switch (m.Msg)
                 {
                     case WM_PASTE:
@@ -324,7 +331,7 @@ namespace Chiroptera.Win
                 }
             }
             catch { }
-			base.WndProc(ref m);
+            base.WndProc(ref m);
         }
 
         #region Control Snooping

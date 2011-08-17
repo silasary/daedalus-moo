@@ -127,7 +127,7 @@ namespace Chiroptera.Base
 
 
         #region INotifyPropertyChanged Members
-
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(String propname)
