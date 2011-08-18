@@ -21,6 +21,7 @@ namespace Chiroptera.Base
 		{
 			public int m_index;
 			public TextStyle m_style;
+            public string m_link_uri;
 
 			public MetaData(int index, TextStyle style)
 			{
@@ -32,6 +33,12 @@ namespace Chiroptera.Base
 				: this(index, new TextStyle(fg, bg))
 			{
 			}
+
+            public MetaData(int index, TextStyle style, string uri)
+                : this(index, style)
+            {
+                this.m_link_uri = uri;
+            }
 
 			public override string ToString()
 			{
@@ -219,7 +226,40 @@ namespace Chiroptera.Base
 
 			Validate();
 		}
-		
+
+        public void Linkify(int index, int length, string LinkUri)
+        {
+            int i = 0;
+            TextStyle style = new TextStyle();
+            TextStyle currentStyle = null;
+
+            while (i < m_metaData.Count && m_metaData[i].m_index < index)
+            {
+                currentStyle = m_metaData[i].m_style;
+                i++;
+            }
+
+            if (currentStyle != null)
+                style = currentStyle;
+
+            // xxx broken, I think
+            m_metaData.Insert(i++, new MetaData(index, style,LinkUri));
+            if (currentStyle != null)
+                m_metaData.Insert(i++, new MetaData(index + length, currentStyle));
+            else
+                m_metaData.Insert(i++, new MetaData(index + length, TextStyle.CreateDefaultStyle()));
+
+            // remove the nodes inside the colored area
+            while (i < m_metaData.Count && m_metaData[i].m_index < index + length)
+            {
+                m_metaData[i].m_link_uri = LinkUri;
+                i++;
+            }
+
+            Validate();
+        }
+
+
 		void Validate()
 		{
 			int idx = -1;

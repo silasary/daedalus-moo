@@ -76,6 +76,7 @@ namespace Daedalus.MCP.Packages
                     {
                         case '=': // Set the userlist.
                             Players.Clear();
+                            UserList.Items.Clear();
                             foreach (List<object> row in Data)
                             {
                                 Players.Add(player = new UserListPlayer(Fields, row));
@@ -124,6 +125,7 @@ namespace Daedalus.MCP.Packages
             UserList.View = View.List;
             UserList.Columns.Add("Name");
             connection.AddWidgit(UserList);
+            UserList.Items.Clear(); 
             icons = new ImageList();
             if (Settings.Default.UseVMooIcons)
                 icons.Images.AddStrip(Properties.Resources.Userlist_VMoo);

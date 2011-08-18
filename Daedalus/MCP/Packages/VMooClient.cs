@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Chiroptera.Base;
+using System.Text.RegularExpressions;
 
 namespace Daedalus.MCP.Packages
 {
@@ -40,7 +42,11 @@ namespace Daedalus.MCP.Packages
         {
             Handler.CurrentConnection.Form.TextViewControl.Resize += new EventHandler(Form_ResizeEnd);
             SendScreenSize();
-            Handler.SendOOB("dns-com-vmoo-client-info", MCPHandler.CreateKeyvals("name", MOO.Interop.Escape(Application.ProductName), "text-version", MOO.Interop.Escape(Application.ProductVersion), "internal-version", MOO.Interop.Escape(new Version(Application.ProductVersion).Build.ToString()), "flags", MOO.Interop.Escape(""), "reg-id", MOO.Interop.Escape("0")));
+            string flags = "l"; // l = Links. m = Moops. p = proxy.
+            string xvmooflags = ""; // x-vmoo-flags: m (multimedia), w (popup windows), a (unknown)
+            Handler.SendOOB("dns-com-vmoo-client-info", MCPHandler.CreateKeyvals("name", MOO.Interop.Escape(Application.ProductName), "text-version", MOO.Interop.Escape(Application.ProductVersion), "internal-version", MOO.Interop.Escape(new Version(Application.ProductVersion).Build.ToString()), "flags", MOO.Interop.Escape(flags), "reg-id", MOO.Interop.Escape("0"),"x-vmoo-flags", MOO.Interop.Escape(xvmooflags)));
+            Handler.CurrentConnection.ServicesDispatcher.RegisterMessageHandler(this.ParseLinks);
+            Handler.CurrentConnection.ServicesDispatcher.RegisterLinkClickedHandler(LinkClicked);
         }
 
         void Form_ResizeEnd(object sender, EventArgs e)
@@ -65,7 +71,66 @@ namespace Daedalus.MCP.Packages
         #endregion
 
         #region @[Links]
-
+        static Regex vmooLinkExp = new Regex(@"@\[(\w+):(.+)\](.+)@\[/\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        // @[{1}:{2}]{3}@[/]
+        public ColorMessage ParseLinks(ColorMessage colorMessage)
+        {
+            MatchCollection matches = vmooLinkExp.Matches(colorMessage.Text);
+            if (matches.Count > 0)
+            {
+                Match match = matches[0];
+                int index = match.Index;
+                int length = match.Length;
+                string link = match.Groups[0].Value;
+                string protocol = match.Groups[1].Value;
+                string command = match.Groups[2].Value;
+                string text = match.Groups[3].Value;
+                colorMessage.Remove(index, ("@[" + protocol + ":" + command + "]").Length);
+                colorMessage.Remove(index + text.Length, "@[/]".Length);
+                colorMessage.Linkify(index, text.Length, protocol + ":" + command);
+            }
+            return colorMessage;
+        }
+        private bool LinkClicked(string link)
+        {
+            string proto = link.Split(':')[0].ToLower();
+            link = link.Substring(proto.Length + 1);
+            switch (proto)
+            {
+                case "exit":
+                case "go": // I assume these are equal?
+                    Handler.CurrentConnection.SendLine("GO " + link);
+                    return true;
+                case "look":
+                    Handler.CurrentConnection.SendLine("LOOK " + link);
+                    return true;
+                case "join":
+                    Handler.CurrentConnection.SendLine("@join " + link);
+                    return true;
+                case "moo":
+                case "cmd":
+                    Handler.CurrentConnection.SendLine(link);
+                    return true;
+            }
+            return false;
+        }
+/*
+    go exit look mailto http-link ansi
+@[http://]<desc>@[/]
+----------- @paste from CaPI --------------
+Basis syntax:
+@[[[       Letterlijk weergeven @[
+@[[<code>:<waarde>]      (Wordt afgehandeld door de client)
+@[[<moo-code>::<waarde>]         (Wordt via MCP aan de moo teruggestuurd)
+@[[&<code>]       (Extended characters)
+@[[&#<nr>]        (Extended characters)
+@[[/]      Algemene afsluitcode
+@[[off]      Algemene afsluitcode
+@[[@]      Negeer verder op deze regel @[ codes
+---------------------------------------
+
+CaPI denkt, "<waarde> moet gequote worden als er een van deze tekens in zit: ]"\,;' ..." (ook de spatie)
+*/
         #endregion
     }
 }

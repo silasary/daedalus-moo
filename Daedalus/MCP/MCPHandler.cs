@@ -231,7 +231,7 @@ namespace Daedalus.MCP
             Packages.Add(new Packages.SimpleEdit(this));
             Packages.Add(new Packages.VMooClient(this));
             Packages.Add(new Packages.Multiplex(this));
-            //Packages.Add(new Packages.BerylliumStatus(this));
+            Packages.Add(new Packages.BerylliumStatus(this));
         }
     }
 }

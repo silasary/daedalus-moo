@@ -58,6 +58,12 @@ namespace Chiroptera.Win
 					m_fgColor = m_bgColor;
 					m_bgColor = tmp;
 				}
+
+                if (cmMeta.m_link_uri != null)
+                {
+                    linkurl = cmMeta.m_link_uri;
+                    m_isLink = true;
+                }
 			}
 
 			public MetaData(int index, System.Drawing.Color textColor, System.Drawing.Color backgroundColor)
