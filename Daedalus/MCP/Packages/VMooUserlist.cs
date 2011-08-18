@@ -171,17 +171,17 @@ namespace Daedalus.MCP.Packages
         {
             // We may want to make this configurable later on.
             icons.Images.SetKeyName(0, "Blank");
-            icons.Images.SetKeyName(1, "Idle");
-            icons.Images.SetKeyName(2, "Away");
-            icons.Images.SetKeyName(3, "Idle+Away");
-            icons.Images.SetKeyName(4, "Friend");
-            icons.Images.SetKeyName(5, "Newbie");
-            icons.Images.SetKeyName(6, "Inhabitant");
-            icons.Images.SetKeyName(7, "Inhabitant+");
-            icons.Images.SetKeyName(8, "Schooled");
-            icons.Images.SetKeyName(9, "Key");
-            icons.Images.SetKeyName(10, "Star");
-            icons.Images.SetKeyName(11, "Wizard");
+            icons.Images.SetKeyName(1, "Idle");         // Idle
+            icons.Images.SetKeyName(2, "Away");         // Away
+            icons.Images.SetKeyName(3, "Idle+Away");    // ...
+            icons.Images.SetKeyName(4, "Friend");       // Userlist Friend implementation.
+            icons.Images.SetKeyName(5, "Newbie");       // Guest
+            icons.Images.SetKeyName(6, "Inhabitant");   // Builder
+            icons.Images.SetKeyName(7, "Inhabitant+");  // Programmer
+            icons.Images.SetKeyName(8, "Schooled");     // Overseer/Scholar/etc
+            icons.Images.SetKeyName(9, "Key");          // unknown usage. (MOO specific?)
+            icons.Images.SetKeyName(10, "Star");        // unknown usage. (MOO specific?)
+            icons.Images.SetKeyName(11, "Wizard");      // Wizard
 
         }
 
