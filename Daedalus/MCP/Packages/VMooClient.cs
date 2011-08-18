@@ -115,21 +115,36 @@ namespace Daedalus.MCP.Packages
             return false;
         }
 /*
-    go exit look mailto http-link ansi
-@[http://]<desc>@[/]
------------ @paste from CaPI --------------
-Basis syntax:
-@[[[       Letterlijk weergeven @[
-@[[<code>:<waarde>]      (Wordt afgehandeld door de client)
-@[[<moo-code>::<waarde>]         (Wordt via MCP aan de moo teruggestuurd)
-@[[&<code>]       (Extended characters)
-@[[&#<nr>]        (Extended characters)
-@[[/]      Algemene afsluitcode
-@[[off]      Algemene afsluitcode
-@[[@]      Negeer verder op deze regel @[ codes
----------------------------------------
-
-CaPI denkt, "<waarde> moet gequote worden als er een van deze tekens in zit: ]"\,;' ..." (ook de spatie)
+    go exit look mailto http-link ansi
+
+@[http://]<desc>@[/]
+
+----------- @paste from CaPI --------------
+
+Basis syntax:
+
+@[[[       Letterlijk weergeven @[
+
+@[[<code>:<waarde>]      (Wordt afgehandeld door de client)
+
+@[[<moo-code>::<waarde>]         (Wordt via MCP aan de moo teruggestuurd)
+
+@[[&<code>]       (Extended characters)
+
+@[[&#<nr>]        (Extended characters)
+
+@[[/]      Algemene afsluitcode
+
+@[[off]      Algemene afsluitcode
+
+@[[@]      Negeer verder op deze regel @[ codes
+
+---------------------------------------
+
+
+
+CaPI denkt, "<waarde> moet gequote worden als er een van deze tekens in zit: ]"\,;' ..." (ook de spatie)
+
 */
         #endregion
     }
