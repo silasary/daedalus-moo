@@ -633,7 +633,8 @@ namespace Chiroptera.Win
 							f = m_underlineFont;
 						else
 							f = this.Font;
-
+                        if (idx1 < 0) // Word Wrapping. 
+                            idx1 = 0;
 						g.DrawString(lineString.Substring(idx1, idx2 - idx1), f, m_defaultBrush, idx1 * m_charWidth, destLine * m_charHeight + lineNumber * m_charHeight, format);
 					}
 

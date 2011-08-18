@@ -59,6 +59,7 @@ namespace Daedalus
             _connection = new Connection(this);
             InitTextView();
             _connection.WriteLine("Initialized");
+            this.StatusLabel.DoubleClick += new EventHandler(toolStripStatusLabel_DoubleClick);
             
         }
 
@@ -148,6 +149,19 @@ namespace Daedalus
        {
            foreach (Control c in Sidebar.Controls)
                c.Width = Sidebar.Width;
+       }
+
+       private void toolStripStatusLabel_DoubleClick(object sender, EventArgs e)
+       {
+
+           if ((((ToolStripLabel)sender).Tag) is Chiroptera.Win.Paragraph.MetaData)
+           {
+               Chiroptera.Win.Paragraph.MetaData metadata = (Chiroptera.Win.Paragraph.MetaData)(((ToolStripLabel)sender).Tag);
+               if (metadata.linkurl != null && metadata.linkurl != "")
+               {
+
+               }
+           }
        }
 
        private void WorldForm_Load(object sender, EventArgs e)

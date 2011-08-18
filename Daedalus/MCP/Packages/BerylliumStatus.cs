@@ -37,6 +37,8 @@ namespace Daedalus.MCP.Packages
                     return;
                 connection.SetStatus(KeyVals["text"], new Chiroptera.Win.Paragraph.MetaData(0, System.Drawing.Color.Black, System.Drawing.Color.White) { linkurl = KeyVals["cmd"] });
             }
+            else if (System.Diagnostics.Debugger.IsAttached)
+                throw new NotImplementedException(command); // It'll get printed to screen.
         }
 
         public void Negotiated()
