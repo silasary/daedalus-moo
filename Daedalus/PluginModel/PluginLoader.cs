@@ -60,5 +60,22 @@ namespace Daedalus.PluginModel
            }
            return packages;
        }
+
+       internal static Type[] SerializedTypes
+       {
+           get
+           {
+               List<Type> types = new List<Type>();
+               foreach (IPlugin plug in Plugins)
+               {
+                   try
+                   {
+                       types.AddRange(plug.SettingsTypes);
+                   }
+                   catch (NotImplementedException) { if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break(); }
+               }
+               return types.ToArray();
+           }
+       }
     }
 }

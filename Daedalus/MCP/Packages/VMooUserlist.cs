@@ -56,6 +56,17 @@ namespace Daedalus.MCP.Packages
                     return;
                 you = new Daedalus.MOO.MOOObject(KeyVals["nr"]);
             }
+            else if (command == "dns-com-vmoo-userlist-icon-url")
+            {
+                if (!MCPHandler.ContainsKeys(KeyVals, "url"))
+                    return;
+                icons.Images.Clear();
+                System.IO.Stream stream = new System.Net.WebClient().OpenRead(KeyVals["url"] as string);
+                icons.Images.AddStrip(System.Drawing.Image.FromStream(stream));
+                stream.Close();
+                SetImageKeys(icons);
+
+            }
             else if (command == "dns-com-vmoo-userlist-multiline")
             {
                 if (MCPHandler.ContainsKeys(KeyVals, "fields"))
@@ -79,14 +90,18 @@ namespace Daedalus.MCP.Packages
                             UserList.Items.Clear();
                             foreach (List<object> row in Data)
                             {
+                                
                                 Players.Add(player = new UserListPlayer(Fields, row));
                                 player.props["Icon"] = Icons[(int)player.props["Icon"] - 1];
-                                UserList.Items.Add(player.LVI);
+                                if (!UserList.VirtualMode) 
+                                    UserList.Items.Add(player.LVI);
                             }
                             break;
                         case '+': // Logged On
                             Players.Add(player = new UserListPlayer(Fields, Data));
-                            UserList.Items.Add(player.LVI);
+                            player.props["Icon"] = Icons[(int)player.props["Icon"] - 1];
+                            if (!UserList.VirtualMode) 
+                                UserList.Items.Add(player.LVI);
                             break;
                         case '-': // Logged Off
                             Players.Remove(player = Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])));
@@ -94,19 +109,33 @@ namespace Daedalus.MCP.Packages
                             UserList.Items.AddRange(Players.Select(p => p.LVI).ToArray()); // TODO: Switch to using a virtual ListView.
                             break;
                         case '<': // They went idle
-
+                            Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])).IsIdle = true;
+                            break;
                         case '>': // No longer idle
-
+                            Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])).IsIdle = false;
+                            break;
                         case '[': // Away
-
+                            Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])).IsAway = true;
+                            break;
                         case ']': // Back
-
+                            Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])).IsAway = false;
+                            break;
                         case '(': // Cloak
 
                         case ')': // Decloak
 
                         default:
                             break;
+                    }
+                    UserList.VirtualListSize = Players.Count;
+                    UserList.Update();
+                    if (!UserList.VirtualMode)
+                    {
+                        UserList.Items.Clear();
+                        foreach (UserListPlayer p in Players)
+                        {
+                           UserList.Items.Add(p.LVI);
+                        }
                     }
                 }
             }
@@ -133,10 +162,17 @@ namespace Daedalus.MCP.Packages
                 icons.Images.AddStrip(Daedalus.Properties.Resources.Userlist);
             SetImageKeys(icons);
             UserList.SmallImageList = icons;
-            
+          //  UserList.VirtualMode = true;
+            UserList.RetrieveVirtualItem += new RetrieveVirtualItemEventHandler(UserList_RetrieveVirtualItem);
         }
         #endregion
         
+        void UserList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            e.Item = this.Players[e.ItemIndex].LVI;
+        }
+
+
         class UserListPlayer
         {
             public Dictionary<string, object> props = new Dictionary<string, object>();
@@ -152,9 +188,19 @@ namespace Daedalus.MCP.Packages
             {
                 get
                 {
-                    return new ListViewItem(props["Name"] as string) { ImageKey = (string)this.props["Icon"] };
+                    string icon = (string)this.props["Icon"];
+                    if (IsIdle && IsAway)
+                        icon = "Idle+Away";
+                    else if (IsIdle)
+                        icon = "Idle";
+                    else if (IsAway)
+                        icon = "Away";
+                    return new ListViewItem(props["Name"] as string) { ImageKey = icon };
                 }
             }
+
+            public bool IsIdle { get; set; }
+            public bool IsAway { get; set; }
         }
 
         #region MCPPackage Members

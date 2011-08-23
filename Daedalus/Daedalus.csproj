@@ -102,6 +102,7 @@
     <Compile Include="Forms\WorldSelect.Designer.cs">
       <DependentUpon>WorldSelect.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HistoryTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
