@@ -731,5 +731,15 @@ namespace Chiroptera.Win
         }
 
         #endregion
+
+        #region IChiConsole Members
+
+
+        public void SetStatus(string status, object metadata)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
