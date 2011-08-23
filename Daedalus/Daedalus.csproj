@@ -189,6 +189,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="RtfTextView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RtfTextView.Designer.cs">
+      <DependentUpon>RtfTextView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Settings.Serializer.cs" />
     <Compile Include="TextViewBasic.cs">

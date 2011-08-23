@@ -27,11 +27,11 @@ namespace Daedalus
                 _textView = value;
             }
         }
-        public UserControl TextViewControl
+        public Control TextViewControl
         {
             get
             {
-                return _textView as UserControl;
+                return _textView as Control;
             }
         }
         public Panel Sidebar
@@ -73,8 +73,9 @@ namespace Daedalus
                     TextView = new TextViewWin();
                     break;
                 default:
-                    MessageBox.Show(System.Environment.OSVersion.Platform.ToString() + " is not currently supported.");
-                    TextView = new TextViewBasic();
+                    TextView = new RtfTextView();
+                    //MessageBox.Show(System.Environment.OSVersion.Platform.ToString() + " is not currently supported.");
+                    //TextView = new TextViewBasic();
                     break;
             }
             TextView.ParagraphContainer = new ParagraphContainer();

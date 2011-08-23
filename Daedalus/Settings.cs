@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Drawing;
+using System.Xml.Serialization;
 namespace Daedalus
 {
     public partial class Settings : INotifyPropertyChanged
@@ -76,6 +78,53 @@ namespace Daedalus
             set { vmooIcons = value; OnPropertyChanged("UseVMooIcons"); }
         }
 
+        private Font consoleFont;
+        [XmlIgnore]
+        public Font ConsoleFont
+        {
+            get
+            {
+                if (consoleFont == null)
+                    return new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                return consoleFont;
+            }
+            set { consoleFont = value; }
+        }
+        public SerializableFont ConsoleFontSetting // Xml Serialization can't do fonts the normal way.
+        {
+            get
+            {
+                return ConsoleFont;
+            }
+            set
+            {
+                consoleFont = value;
+            }
+        }
+
+        private Font inputFont;
+        [XmlIgnore]
+        public Font InputFont
+        {
+            get
+            {
+                if (inputFont == null)
+                    return new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                return inputFont;
+            }
+            set { inputFont = value; }
+        }
+        public SerializableFont InputFontSetting // Xml Serialization can't do fonts the normal way.
+        {
+            get
+            {
+                return InputFont;
+            }
+            set
+            {
+                inputFont = value;
+            }
+        }
 
         #region INotifyPropertyChanged Members
         private bool changed;  // For the serializer.

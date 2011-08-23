@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorldForm));
             this.historyTextBox1 = new Chiroptera.Win.HistoryTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -39,7 +40,9 @@
             // 
             // historyTextBox1
             // 
+            this.historyTextBox1.DataBindings.Add(new System.Windows.Forms.Binding("Font", Settings.Default, "InputFont", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.historyTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.historyTextBox1.Font = Settings.Default.InputFont;
             this.historyTextBox1.History = new string[0];
             this.historyTextBox1.Location = new System.Drawing.Point(0, 0);
             this.historyTextBox1.Name = "historyTextBox1";
