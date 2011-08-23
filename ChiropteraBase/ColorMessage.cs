@@ -233,7 +233,7 @@ namespace Chiroptera.Base
             TextStyle style = new TextStyle();
             TextStyle currentStyle = null;
 
-            while (i < m_metaData.Count && m_metaData[i].m_index < index)
+            while (i < m_metaData.Count && m_metaData[i].m_index <= index)
             {
                 currentStyle = m_metaData[i].m_style;
                 i++;

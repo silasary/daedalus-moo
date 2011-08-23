@@ -87,7 +87,14 @@ namespace Daedalus.MCP.Packages
                 string text = match.Groups[3].Value;
                 colorMessage.Remove(index, ("@[" + protocol + ":" + command + "]").Length);
                 colorMessage.Remove(index + text.Length, "@[/]".Length);
-                colorMessage.Linkify(index, text.Length, protocol + ":" + command);
+                if (protocol == "ansi")
+                {
+                    //colorMessage.Colorize
+                }
+                else
+                {
+                    colorMessage.Linkify(index, text.Length, protocol + ":" + command);
+                }
             }
             return colorMessage;
         }

@@ -57,7 +57,8 @@ namespace Daedalus
                     }
                     catch { }
                     finally { if (stream != null) stream.Close(); }
-                    
+                    SerializedTypes.AddRange(PluginModel.PluginLoader.SerializedTypes);
+
                     if (File.Exists("Settings.xml"))
                     {
                         serializer = new XmlSerializer(typeof(Settings), SerializedTypes.ToArray());
