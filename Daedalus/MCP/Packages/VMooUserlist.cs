@@ -121,10 +121,16 @@ namespace Daedalus.MCP.Packages
                             }
                             break;
                         case '[': // Away
-                            Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])).IsAway = true;
+                            foreach (MOOObject who in Data)
+                            {
+                                Players.FirstOrDefault(p => p.props["Object"].Equals(who)).IsAway = true;
+                            }
                             break;
                         case ']': // Back
-                            Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])).IsAway = false;
+                            foreach (MOOObject who in Data)
+                            {
+                                Players.FirstOrDefault(p => p.props["Object"].Equals(who)).IsAway = false;
+                            }
                             break;
                         case '(': // Cloak
 
