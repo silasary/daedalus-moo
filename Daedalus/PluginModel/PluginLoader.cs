@@ -19,6 +19,8 @@ namespace Daedalus.PluginModel
                    List<IPlugin> Plugins = new List<IPlugin>();
                    foreach (string dll in Directory.GetFiles(".", "Daedalus.Plugin.*", SearchOption.AllDirectories))
                    {
+                       if (Path.GetExtension(dll) != "dll" && Path.GetExtension(dll) != "exe")
+                           continue;
                        try
                        {
                            Assembly loaded = Assembly.LoadFile(Path.GetFullPath(dll));

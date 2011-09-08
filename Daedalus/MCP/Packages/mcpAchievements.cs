@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Net;
+using System.IO;
 
 namespace Daedalus.MCP.Packages
 {
@@ -63,18 +64,31 @@ namespace Daedalus.MCP.Packages
             Font FontDesc = new System.Drawing.Font("Segoe WP SemiLight", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
             Timer timer = new Timer();
+            WebClient wc;
+            bool DownloadingImage = false;
 
             public AchievementPopupDialogue(string name, string desc, string icon)
             {
                 this.AchName = name;
                 this.AchDesc = desc;
                 if (!string.IsNullOrEmpty(icon) && icon != "\"\"")
-                    this.icon = Image.FromStream(new WebClient().OpenRead(icon));
+                {
+                    wc = new WebClient();
+                    wc.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(wc_DownloadFileCompleted);
+                    try
+                    {
+                        wc.DownloadFileAsync(new Uri(icon), Path.GetFileName(icon), Path.GetFileName(icon));
+                        DownloadingImage = true;
+                    }
+                    catch (WebException) { }
+                    catch (Exception) { }
+                }
 
                 this.Height = 69;
                 this.Width = 300;
                 this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 this.StartPosition = FormStartPosition.Manual;
+                this.ShowInTaskbar = false;
 
                 this.Top = Screen.PrimaryScreen.WorkingArea.Bottom;
                 this.Left = Screen.PrimaryScreen.WorkingArea.Right - this.Width;
@@ -83,6 +97,19 @@ namespace Daedalus.MCP.Packages
                 timer.Start();
                 this.TopMost = true;
             }
+
+            void wc_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+            {
+                try
+                {
+                    this.icon = Image.FromFile(e.UserState as string);
+                }
+                catch (OutOfMemoryException) { } // GDI+ has some weird ideas on what an OOM exception actually is.
+                this.Invalidate();
+                DownloadingImage = false;
+                timeshown = DateTime.UtcNow;
+            }
+
             int stage = 1;
             DateTime timeshown = DateTime.UtcNow;
             void timer_Tick(object sender, EventArgs e)
@@ -94,9 +121,11 @@ namespace Daedalus.MCP.Packages
                     {
                         if (f == this)
                             break;
-                        bottom -= f.Height;
+                        bottom = f.Top;
                     }
                 }
+                if (DownloadingImage)
+                    return;
                 if (stage == 1)
                     if (this.Bottom > bottom)
                         this.Top -= 1;
@@ -107,7 +136,7 @@ namespace Daedalus.MCP.Packages
                         stage = 3;
                     else 
                     {
-                        if (this.Bottom < bottom)
+                        if (this.Bottom <= bottom)
                             this.Top += 1; // another one closed, so go back down
                     }
                 else if (stage == 3)
@@ -115,6 +144,8 @@ namespace Daedalus.MCP.Packages
                     {
                         timer.Stop();
                         timer.Dispose();
+                        if (this.icon != null)
+                            this.icon.Dispose();
                         this.Close();
                         this.Dispose();
                     }
@@ -129,7 +160,7 @@ namespace Daedalus.MCP.Packages
                 if (icon != null)
                 {
                     e.Graphics.DrawImage(icon, new Rectangle(5, 5, 64, 64));
-                    textstart = 37;
+                    textstart = 69;
                 }
                 e.Graphics.DrawString(AchName, FontName, Brushes.Black, textstart, 5);
                 e.Graphics.DrawString(AchDesc, FontDesc, Brushes.Black, textstart, 30);
