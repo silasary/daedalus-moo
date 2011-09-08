@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Linq;
+using Daedalus.MOO;
 
 namespace Daedalus.MCP.Packages
 {
@@ -90,7 +91,6 @@ namespace Daedalus.MCP.Packages
                             UserList.Items.Clear();
                             foreach (List<object> row in Data)
                             {
-                                
                                 Players.Add(player = new UserListPlayer(Fields, row));
                                 player.props["Icon"] = Icons[(int)player.props["Icon"] - 1];
                                 if (!UserList.VirtualMode) 
@@ -109,10 +109,16 @@ namespace Daedalus.MCP.Packages
                             UserList.Items.AddRange(Players.Select(p => p.LVI).ToArray()); // TODO: Switch to using a virtual ListView.
                             break;
                         case '<': // They went idle
-                            Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])).IsIdle = true;
+                            foreach (MOOObject who in Data)
+                            {
+                                Players.FirstOrDefault(p => p.props["Object"].Equals(who)).IsIdle = true;
+                            }
                             break;
                         case '>': // No longer idle
-                            Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])).IsIdle = false;
+                            foreach (MOOObject who in Data)
+                            {
+                                Players.FirstOrDefault(p => p.props["Object"].Equals(who)).IsIdle = false;
+                            }
                             break;
                         case '[': // Away
                             Players.FirstOrDefault(p => p.props["Object"].Equals(Data[0])).IsAway = true;
