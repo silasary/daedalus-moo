@@ -127,9 +127,23 @@ namespace Daedalus.MCP
             StringBuilder value = new StringBuilder();
             string name = null;
             string[] words = s.Split(' ');
+            bool inQuotes = false;
             foreach (string word in words)
             {
-                if (word.EndsWith(":"))
+                if (value.ToString() == "" && inQuotes == false && word.StartsWith("\""))
+                {
+                    value.Append(word.Trim('"')).Append(' ');
+                    if (!word.Substring(1).EndsWith("\"")) // Null strings, strings starting with a space...
+                        inQuotes = true;
+                }
+                else if (inQuotes == true && word.EndsWith("\""))
+                {
+                    value.Append(word.Trim('"')).Append(' ');
+                    inQuotes = false;
+                }
+                else if (inQuotes == true)
+                    value.Append(word).Append(' ');
+                else if (word.EndsWith(":"))
                 {
                     if (name != null) // Finalize the previous keyval.
                     {
@@ -137,7 +151,7 @@ namespace Daedalus.MCP
                     }
                     name = word.Substring(0, word.Length - 1);
                     value = new StringBuilder();
-                    
+
                 }
                 else
                 {
@@ -232,6 +246,7 @@ namespace Daedalus.MCP
             Packages.Add(new Packages.VMooClient(this));
             Packages.Add(new Packages.Multiplex(this));
             Packages.Add(new Packages.BerylliumStatus(this));
+            Packages.Add(new Packages.mcpAchievements(this));
         }
     }
 }
