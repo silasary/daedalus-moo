@@ -77,7 +77,9 @@ namespace Daedalus.MCP.Packages
                     wc.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(wc_DownloadFileCompleted);
                     try
                     {
-                        wc.DownloadFileAsync(new Uri(icon), Path.GetFileName(icon), Path.GetFileName(icon));
+                        if (!Directory.Exists("Cache"))
+                            Directory.CreateDirectory("Cache");
+                        wc.DownloadFileAsync(new Uri(icon), Path.Combine("Cache", Path.GetFileName(icon)), Path.Combine("Cache", Path.GetFileName(icon)));
                         DownloadingImage = true;
                     }
                     catch (WebException) { }
