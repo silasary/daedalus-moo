@@ -90,7 +90,7 @@ namespace Daedalus.MCP
             {
                 foreach (MCPPackage package in Packages)
                 {
-                    if (command.StartsWith(package.PackageName))
+                    if (package.Supported && command.StartsWith(package.PackageName))
                     {
                         Commands.Add(command, package);
                         package.HandleMessage(command, KeyVals);

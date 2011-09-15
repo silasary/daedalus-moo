@@ -54,6 +54,7 @@ namespace Daedalus.MCP.Packages
         }
 
         #endregion
+        public bool Supported { get; set; }
         private class AchievementPopupDialogue : Form
         {
             private string AchName;

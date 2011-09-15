@@ -45,6 +45,7 @@ namespace Daedalus.MCP.Packages
                     Chiroptera.Base.ChiConsole.WriteError("MCP Package not found: " + KeyVals["package"]);
                     return;
                 }
+                package.Supported = true;
                 try
                 {
                     package.Negotiated();
@@ -62,5 +63,6 @@ namespace Daedalus.MCP.Packages
         }
 
         #endregion
+        public bool Supported { get { return true; } set { } }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace Daedalus.PluginModel
 {
@@ -73,6 +74,23 @@ namespace Daedalus.PluginModel
                    try
                    {
                        types.AddRange(plug.SettingsTypes);
+                   }
+                   catch (NotImplementedException) { if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break(); }
+               }
+               return types.ToArray();
+           }
+       }
+
+       internal static TabPage[] OptionsPages
+       {
+           get {
+
+               List<TabPage> types = new List<TabPage>();
+               foreach (IPlugin plug in Plugins)
+               {
+                   try
+                   {
+                       types.AddRange(plug.Options);
                    }
                    catch (NotImplementedException) { if (System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Break(); }
                }

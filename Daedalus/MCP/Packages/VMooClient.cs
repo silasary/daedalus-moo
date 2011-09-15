@@ -69,7 +69,7 @@ namespace Daedalus.MCP.Packages
         }
 
         #endregion
-
+        public bool Supported { get; set; }
         #region @[Links]
         static Regex vmooLinkExp = new Regex(@"@\[(\w+):(.+)\](.+)@\[/\]", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         // @[{1}:{2}]{3}@[/]

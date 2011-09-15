@@ -13,5 +13,8 @@ namespace Daedalus.MCP
         void HandleMessage(string command, Dictionary<string, string> KeyVals);
         void Negotiated();
         void Disconnected();
+
+        bool Supported {get;set;}
+
     }
 }

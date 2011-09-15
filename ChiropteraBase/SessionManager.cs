@@ -23,9 +23,18 @@ namespace Chiroptera.Base
             if (File.Exists("Sessions.dat"))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                Stream stream = File.OpenRead("Sessions.dat");
-                Sessions = formatter.Deserialize(stream) as List<SavedSession>;
-                stream.Close();
+                Stream stream = null;
+                try
+                {
+                    stream = File.OpenRead("Sessions.dat");
+                    Sessions = formatter.Deserialize(stream) as List<SavedSession>;
+                }
+                catch (Exception) { Sessions = new List<SavedSession>(); }
+                finally
+                {
+                    if (stream != null)
+                        stream.Close();
+                }
             }
             else
                 Sessions = new List<SavedSession>();
