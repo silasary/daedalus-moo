@@ -133,5 +133,6 @@ namespace Daedalus.MCP.Packages
         }
 
         #endregion
+        public bool Supported { get; set; }
     }
 }

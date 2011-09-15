@@ -174,6 +174,11 @@ namespace Daedalus
             new AboutBox().ShowDialog(this);
         }
 
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new OptionsWindow().ShowDialog(this);
+        }
+
 
     }
 }

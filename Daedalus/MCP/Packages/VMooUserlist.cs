@@ -242,6 +242,6 @@ namespace Daedalus.MCP.Packages
             icons.Images.SetKeyName(11, "Wizard");      // Wizard
 
         }
-
+        public bool Supported { get; set; }
     }
 }
