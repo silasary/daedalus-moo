@@ -4,6 +4,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Linq;
 using Daedalus.MOO;
+using System.Net;
+using System.Threading;
 
 namespace Daedalus.MCP.Packages
 {
@@ -20,11 +22,11 @@ namespace Daedalus.MCP.Packages
             connection = handler.CurrentConnection;
         }
         ListView UserList;
-        MOO.MOOObject you = new Daedalus.MOO.MOOObject("#-1");
+        List<UserListPlayer> Players = new List<UserListPlayer>();
         string[] Fields;
         string[] Icons;
-        List<UserListPlayer> Players = new List<UserListPlayer>();
-
+        Daedalus.MOO.MOOObject you = new MOOObject("#-1");
+        UserListPlayer You { get { return Players.FirstOrDefault(up => up.props["Object"].Equals(you)); } }
         #region MCPPackage Members
 
         public string PackageName
@@ -55,17 +57,26 @@ namespace Daedalus.MCP.Packages
             {
                 if (!MCPHandler.ContainsKeys(KeyVals, "nr"))
                     return;
-                you = new Daedalus.MOO.MOOObject(KeyVals["nr"]);
+                you = new MOOObject(KeyVals["nr"]);
             }
             else if (command == "dns-com-vmoo-userlist-icon-url")
             {
                 if (!MCPHandler.ContainsKeys(KeyVals, "url"))
                     return;
-                icons.Images.Clear();
-                System.IO.Stream stream = new System.Net.WebClient().OpenRead(KeyVals["url"] as string);
-                icons.Images.AddStrip(System.Drawing.Image.FromStream(stream));
-                stream.Close();
-                SetImageKeys(icons);
+                // We do this asyncronously now.
+                new Thread(new ThreadStart(() =>
+                {
+                    System.IO.Stream stream = new System.Net.WebClient().OpenRead(KeyVals["url"] as string);
+                    System.Drawing.Image imageStrip = System.Drawing.Image.FromStream(stream);
+                    stream.Close();
+                    icons.Images.Clear();
+                    icons.Images.AddStrip(imageStrip);
+                    SetImageKeys(icons);
+                }
+                )) { 
+                        IsBackground = true,
+                        Name = "Userlist Icon Downloader Thread" 
+                   }.Start();
 
             }
             else if (command == "dns-com-vmoo-userlist-multiline")

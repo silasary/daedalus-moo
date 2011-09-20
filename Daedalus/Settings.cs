@@ -78,6 +78,20 @@ namespace Daedalus
             set { vmooIcons = value; OnPropertyChanged("UseVMooIcons"); }
         }
 
+        private bool autoReconnect;
+        public bool AutoReconnect
+        {
+            get
+            {
+                return autoReconnect;
+            }
+            set
+            {
+                autoReconnect = value; 
+                OnPropertyChanged("AutoReconnect");
+            }
+        }
+
         private Font consoleFont;
         [XmlIgnore]
         public Font ConsoleFont
@@ -133,6 +147,8 @@ namespace Daedalus
 
         private void OnPropertyChanged(String propname)
         {
+            if (typeof(Settings).GetProperty(propname) == null)
+                throw new MissingMemberException("Settings", propname);
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propname));

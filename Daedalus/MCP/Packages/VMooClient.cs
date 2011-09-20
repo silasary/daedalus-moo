@@ -35,7 +35,13 @@ namespace Daedalus.MCP.Packages
 
         public void HandleMessage(string command, Dictionary<string, string> KeyVals)
         {
-            throw new NotImplementedException();
+            // #$#dns-com-vmoo-client-disconnect -1495338572 reason: "I don't like your face"
+            if (command == "dns-com-vmoo-client-disconnect")
+            {
+                if (!MCPHandler.ContainsKeys(KeyVals, "reason"))
+                    return;
+                Handler.CurrentConnection.SetDisconnectReason(KeyVals["reason"]);
+            }
         }
 
         public void Negotiated()

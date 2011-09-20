@@ -94,7 +94,7 @@ namespace Daedalus
             if (!tabControl1.HasChildren)
                 tabControl1.Visible = false;
         }
-
+        #region Menu Items
         private void OpenFile(object sender, EventArgs e)
         {
             new WorldSelect().Show(this);
@@ -143,10 +143,17 @@ namespace Daedalus
             }
         }
 
-        private void MDIForm_MdiChildActivate(object sender, EventArgs e)
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            new AboutBox().ShowDialog(this);
         }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new OptionsWindow().ShowDialog(this);
+        }
+
+        #endregion
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -169,16 +176,16 @@ namespace Daedalus
         {
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        internal void UpdateWidgits()
         {
-            new AboutBox().ShowDialog(this);
+            if (tabControl1.SelectedTab != null)
+            {
+                //this.MdiChildren.FirstOrDefault(child => (child as WorldForm).tabPage == tabControl1.SelectedTab).Select();
+                foreach (Form f in Application.OpenForms)
+                    if ((f is MDIChild) && (f as MDIChild).tabPage == tabControl1.SelectedTab)
+                        childForm_Activated(f, new EventArgs());
+            }
+
         }
-
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new OptionsWindow().ShowDialog(this);
-        }
-
-
     }
 }

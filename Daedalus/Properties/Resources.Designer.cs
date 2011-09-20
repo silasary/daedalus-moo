@@ -60,6 +60,13 @@ namespace Daedalus.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Beryllium_Tray {
+            get {
+                object obj = ResourceManager.GetObject("Beryllium_Tray", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Icon globe {
             get {
                 object obj = ResourceManager.GetObject("globe", resourceCulture);
