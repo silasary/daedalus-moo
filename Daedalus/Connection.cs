@@ -28,6 +28,9 @@ namespace Daedalus
 
         MCPHandler m_MCP;
 
+        string DisconnectReason;
+        DateTime DisconnectReasonTime;
+
         public Connection(WorldForm form)
         {
             this.form = form;
@@ -36,6 +39,9 @@ namespace Daedalus
 
             commandManager = new CommandManager(ServicesDispatcher);
             new DefaultCommands(commandManager, this);
+
+            DisconnectReason = "Disconnected Too quickly.";
+            DisconnectReasonTime = DateTime.Now;
 
             telnet = new Telnet();
             telnet.connectEvent += new Telnet.ConnectDelegate(_ConnectEvent);
@@ -211,7 +217,7 @@ namespace Daedalus
         }
         public void AddWidgit(System.Windows.Forms.ToolStripItem toolstripitem)
         {
-            form.ToolStripItems.Add(toolstripitem);
+            form.AddWidgit(toolstripitem);
         }
         #endregion
 
@@ -224,6 +230,9 @@ namespace Daedalus
         void ConnectEvent(Exception exception, string address, int port)
         {
             ServicesDispatcher.DispatchConnectEvent(exception);
+
+            DisconnectReason = "Disconnected Too quickly.";
+            DisconnectReasonTime = DateTime.Now;
 
             if (exception == null)
             {
@@ -250,10 +259,14 @@ namespace Daedalus
         {
             ServicesDispatcher.DispatchDisconnectEvent();
 
-            WriteSystemLine("Disconnected from {0}:{1}", address, port);
-            SetStatus( String.Format("Disconnected from {0}:{1}", address, port));
-            //m_mainWindow.PromptTextBox.Prompt = "";
-            //m_mainWindow.PromptTextBox.PromptPassword = false;
+            string reason = "";
+            if (DateTime.Now.Subtract(DisconnectReasonTime).TotalSeconds < 5)
+                reason = String.Format(" ({0})", DisconnectReason);
+
+            WriteSystemLine("Disconnected from {0}:{1}{2}", address, port,reason);
+            SetStatus( String.Format("Disconnected from {0}:{1}{2}", address, port, reason));
+            if (reason != "" && Settings.Default.AutoReconnect)
+                this.Connect(this.session);
         }
 
         // Transfers control to MainForm's thread
@@ -331,5 +344,11 @@ namespace Daedalus
             }
         }
         #endregion
+
+        internal void SetDisconnectReason(string p)
+        {
+            DisconnectReasonTime = DateTime.Now;
+            DisconnectReason = p;
+        }
     }
 }

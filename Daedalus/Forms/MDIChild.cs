@@ -70,5 +70,12 @@ namespace Daedalus
             if (!ToolbarItems.Contains(detachbutton))
                 this.ToolbarItems.Add(detachbutton);
         }
+        public void AddWidgit(ToolStripItem toolstripitem)
+        {
+            ToolStripItems.Add(toolstripitem);
+            if (this.MdiParent != null)
+                ((MainForm)this.MdiParent).UpdateWidgits();
+        }
+
     }
 }
