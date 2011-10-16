@@ -126,6 +126,20 @@ namespace Chiroptera.Base
         }
 
 
+        private string homePage;
+        /// <summary>
+        /// The world's webpage.
+        /// </summary>
+        public string HomePage
+        {
+            get { return homePage; }
+            set
+            {
+                homePage = value;
+                OnPropertyChanged("HomePage");
+            }
+        }
+
         #region INotifyPropertyChanged Members
         [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;

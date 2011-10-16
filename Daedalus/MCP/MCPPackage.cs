@@ -11,7 +11,7 @@ namespace Daedalus.MCP
         string maxVer { get; }
 
         void HandleMessage(string command, Dictionary<string, string> KeyVals);
-        void Negotiated();
+        void Negotiated(string MinVersion, string MaxVersion);
         void Disconnected();
 
         bool Supported {get;set;}

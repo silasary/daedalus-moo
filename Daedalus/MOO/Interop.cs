@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace Daedalus.MOO
 {
-    class Interop
+    public class Interop
     {
         public static List<object> ParseMOOstruct(string moolist)
         {
@@ -63,7 +63,7 @@ namespace Daedalus.MOO
             return csList;
         }
 
-        internal static string Escape(string p)
+        public static string Escape(string p)
         {
             return "\"" + p.Replace("\"", "\\\"") + "\"";
         }

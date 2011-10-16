@@ -51,7 +51,7 @@ namespace Daedalus.MCP.Packages
             }
         }
 
-        public void Negotiated()
+        public void Negotiated(string MinVersion, string MaxVersion)
         {
             
         }

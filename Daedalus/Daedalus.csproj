@@ -41,7 +41,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -116,9 +117,10 @@
     <Compile Include="ITextView.cs" />
     <Compile Include="MCP\MCPHandler.cs" />
     <Compile Include="MCP\MCPPackage.cs" />
+    <Compile Include="MCP\Packages\awnsSeverInfo.cs" />
     <Compile Include="MCP\Packages\AwnsStatus.cs" />
     <Compile Include="MCP\Packages\BerylliumStatus.cs" />
-    <Compile Include="MCP\Packages\KamahlIDE.cs" />
+    <None Include="MCP\Packages\KamahlIDE.cs" />
     <Compile Include="MCP\Packages\mcpAchievements.cs" />
     <Compile Include="MCP\Packages\MCPNegotiate.cs" />
     <Compile Include="MCP\Packages\Multiplex.cs" />
@@ -228,12 +230,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChiropteraBase\Chiroptera.csproj">
-      <Project>{C31F660E-90FF-4D5D-90E4-04E7FF24EF08}</Project>
-      <Name>Chiroptera</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\globe-icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -262,10 +258,16 @@
   <ItemGroup>
     <None Include="Resources\allsystray.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChiropteraBase\Chiroptera.csproj">
+      <Project>{C31F660E-90FF-4D5D-90E4-04E7FF24EF08}</Project>
+      <Name>Chiroptera</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_UpdateFileVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

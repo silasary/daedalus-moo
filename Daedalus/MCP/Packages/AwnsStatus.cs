@@ -11,22 +11,12 @@ namespace Daedalus.MCP.Packages
         {
             this.connection = handler.CurrentConnection;
         }
-        #region MCPPackage Members
 
-        public string PackageName
-        {
-            get { return "dns-com-awns-status"; }
-        }
+        public string PackageName { get { return "dns-com-awns-status"; } }
 
-        public string minVer
-        {
-            get { return "1.0"; }
-        }
+        public string minVer { get { return "1.0"; } }
 
-        public string maxVer
-        {
-            get { return "1.0"; }
-        }
+        public string maxVer { get { return "1.0"; } }
 
         public void HandleMessage(string command, Dictionary<string, string> KeyVals)
         {
@@ -35,22 +25,14 @@ namespace Daedalus.MCP.Packages
             connection.SetStatus(KeyVals["text"]);
         }
 
-        public void Negotiated()
+        public void Negotiated(string MinVersion, string MaxVersion)
         {
         }
-
-        #endregion
-
-        #region MCPPackage Members
-
 
         public void Disconnected()
         {
             throw new NotImplementedException();
         }
-
-        #endregion
-
 
         public bool Supported { get; set; }
     }

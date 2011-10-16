@@ -92,7 +92,7 @@ namespace Daedalus.MCP.Packages
                 throw new NotImplementedException(command); // It'll get printed to screen.
         }
 
-        public void Negotiated()
+        public void Negotiated(string MinVersion, string MaxVersion)
         {
             TrayImage.Images.AddStrip(Properties.Resources.Beryllium_Tray);
         }
