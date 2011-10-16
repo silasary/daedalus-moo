@@ -100,7 +100,7 @@ namespace Daedalus
             {
                 if (consoleFont == null)
                     return new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                return consoleFont;
+                return consoleFont; 
             }
             set { consoleFont = value; }
         }

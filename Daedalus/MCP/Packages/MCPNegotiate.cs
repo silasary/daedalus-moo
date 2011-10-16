@@ -30,7 +30,7 @@ namespace Daedalus.MCP.Packages
             get { return "2.0"; }
         }
 
-        public void Negotiated() { } // We don't need to do anything.
+        public void Negotiated(string MinVersion, string MaxVersion) { } // We don't need to do anything.
         #endregion
 
         public void HandleMessage(string command, Dictionary<string, string> KeyVals)
@@ -39,16 +39,16 @@ namespace Daedalus.MCP.Packages
             {
                 if (!MCPHandler.ContainsKeys(KeyVals, "package", "min-version", "max-version"))
                     return;
-                MCPPackage package = Handler.FindPackage(KeyVals["package"]);
+                MCPPackage package = Handler.FindPackage(KeyVals["package"], KeyVals["min-version"], KeyVals["max-version"]);
                 if (package == null)
                 {
-                    Chiroptera.Base.ChiConsole.WriteError("MCP Package not found: " + KeyVals["package"]);
+                    Chiroptera.Base.ChiConsole.WriteError("MCP Package not found: " + KeyVals["package"] + "[" + KeyVals["min-version"] + "," + KeyVals["max-version"] + "]");
                     return;
                 }
                 package.Supported = true;
                 try
                 {
-                    package.Negotiated();
+                    package.Negotiated(minVer,maxVer);
                 }
                 catch (NotImplementedException) { }
             }

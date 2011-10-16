@@ -193,6 +193,17 @@ namespace Daedalus.MCP
             }
             return null;
         }
+        public MCPPackage FindPackage(string PackageName, string MinVerion, string MaxVersion)
+        {
+            foreach (MCPPackage package in Packages)
+            {
+                if (PackageName.Trim() == package.PackageName && VersionSupported(MinVerion, MaxVersion, package.minVer, package.maxVer))
+                {
+                    return package;
+                }
+            }
+            return null;
+        }
 
         public bool MCPEnabled { get; private set; }
 
@@ -247,6 +258,7 @@ namespace Daedalus.MCP
             Packages.Add(new Packages.Multiplex(this));
             Packages.Add(new Packages.BerylliumStatus(this));
             Packages.Add(new Packages.mcpAchievements(this));
+            Packages.Add(new Packages.awnsSeverInfo(this));
         }
     }
 }

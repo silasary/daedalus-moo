@@ -44,7 +44,7 @@ namespace Daedalus.MCP.Packages
             }
         }
 
-        public void Negotiated()
+        public void Negotiated(string MinVersion, string MaxVersion)
         {
             Handler.CurrentConnection.Form.TextViewControl.Resize += new EventHandler(Form_ResizeEnd);
             SendScreenSize();
