@@ -40,6 +40,8 @@ namespace McpExtras
         {
             handler.SendOOB("dns-com-awns-visual-getlocation", new Dictionary<string,string>());
             handler.SendOOB("dns-com-awns-visual-getself", new Dictionary<string,string>());
+            handler.CurrentConnection.AddWidgit(EnableAutoMapperMenuItem);
+            EnableAutoMapperMenuItem.CheckedChanged += new EventHandler(EnableAutoMapperMenuItem_CheckedChanged);
         }
 
         public void Disconnected()
@@ -49,8 +51,21 @@ namespace McpExtras
 
         public bool Supported { get; set; }
 
+        void EnableAutoMapperMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (EnableAutoMapperMenuItem.Checked)
+            {
+                handler.CurrentConnection.WriteSystemLine("Automapper enabled.");
+            }
+            else
+            {
+                handler.CurrentConnection.WriteSystemLine("Automapper disabled.");
+            }
+        }
+
         string self = "#-1";
         string location = "#-1";
 
+        System.Windows.Forms.ToolStripMenuItem EnableAutoMapperMenuItem = new System.Windows.Forms.ToolStripMenuItem("Automapper") { CheckOnClick = true };
     }
 }

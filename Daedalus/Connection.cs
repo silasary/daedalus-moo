@@ -219,6 +219,12 @@ namespace Daedalus
         {
             form.AddWidgit(toolstripitem);
         }
+        public void AddWidgit(System.Windows.Forms.ToolStripMenuItem menuItem)
+        {
+            if (form.menu == null)
+                form.menu = new System.Windows.Forms.ToolStripMenuItem("World");
+            form.menu.DropDownItems.Add(menuItem);
+        }
         #endregion
 
         #region TelnetEvents
