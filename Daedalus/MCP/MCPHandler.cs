@@ -259,6 +259,12 @@ namespace Daedalus.MCP
             Packages.Add(new Packages.BerylliumStatus(this));
             Packages.Add(new Packages.mcpAchievements(this));
             Packages.Add(new Packages.awnsSeverInfo(this));
+            Packages.Add(new Packages.awnsGetSet(this));
+        }
+
+        public T FindPackage<T>()
+        {
+            return (T)this.Packages.Find(p => p.GetType() == typeof(T));
         }
     }
 }

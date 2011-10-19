@@ -117,6 +117,7 @@
     <Compile Include="ITextView.cs" />
     <Compile Include="MCP\MCPHandler.cs" />
     <Compile Include="MCP\MCPPackage.cs" />
+    <Compile Include="MCP\Packages\awnsGetSet.cs" />
     <Compile Include="MCP\Packages\awnsSeverInfo.cs" />
     <Compile Include="MCP\Packages\AwnsStatus.cs" />
     <Compile Include="MCP\Packages\BerylliumStatus.cs" />

@@ -8,8 +8,8 @@
     <ProjectGuid>{C31F660E-90FF-4D5D-90E4-04E7FF24EF08}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chiroptera.Base</RootNamespace>
-    <AssemblyName>ChiropteraBase</AssemblyName>
+    <RootNamespace>Daedalus.Core</RootNamespace>
+    <AssemblyName>DaedalusCore</AssemblyName>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
