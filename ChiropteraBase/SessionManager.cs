@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
     public class SessionManager
     {
@@ -36,7 +36,7 @@ namespace Chiroptera.Base
                         stream.Close();
                 }
             }
-            else
+            if (Sessions == null)
                 Sessions = new List<SavedSession>();
         }
 

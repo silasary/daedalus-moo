@@ -124,7 +124,7 @@ namespace Daedalus
        private void WorldForm_FormClosing(object sender, FormClosingEventArgs e)
        {
            _connection.Disconnect();
-           if (_connection.Session != null && !Chiroptera.Base.SessionManager.Default.Sessions.Contains(_connection.Session))
+           if (_connection.Session != null && !Daedalus.Core.SessionManager.Default.Sessions.Contains(_connection.Session))
            {
 
                if (Settings.Default.BasicMode != true)
@@ -132,7 +132,7 @@ namespace Daedalus
                    switch (MessageBox.Show("Save session?", _connection.Session.Name, MessageBoxButtons.YesNo))
                    {
                        case (DialogResult.Yes):
-                           Chiroptera.Base.SessionManager.Default.Sessions.Add(_connection.Session);
+                           Daedalus.Core.SessionManager.Default.Sessions.Add(_connection.Session);
                            break;
                        case (DialogResult.Cancel):
                            e.Cancel = true;

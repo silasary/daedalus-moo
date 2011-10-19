@@ -8,7 +8,7 @@ using System.Collections.Specialized;
 
 #endregion
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	public delegate int CommandHandler(string input);
 

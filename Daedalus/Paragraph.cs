@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using Chiroptera.Base;
+using Daedalus.Core;
 
 namespace Chiroptera.Win
 {
@@ -40,13 +40,13 @@ namespace Chiroptera.Win
 					bool bold;
 					int c;
 
-					c = Ansi.ColorToAnsiColor8(Chiroptera.Base.Color.FromSystemColor(m_fgColor), out bold);
+					c = Ansi.ColorToAnsiColor8(Daedalus.Core.Color.FromSystemColor(m_fgColor), out bold);
 					if (bold == false)
 						m_fgColor = Ansi.AnsiColor8ToColor(c, true).ToSystemColor();
 
 					if (!cmMeta.m_style.Bg.IsEmpty)
 					{
-						c = Ansi.ColorToAnsiColor8(Chiroptera.Base.Color.FromSystemColor(m_bgColor), out bold);
+						c = Ansi.ColorToAnsiColor8(Daedalus.Core.Color.FromSystemColor(m_bgColor), out bold);
 						if (bold == false)
 							m_bgColor = Ansi.AnsiColor8ToColor(c, true).ToSystemColor();
 					}

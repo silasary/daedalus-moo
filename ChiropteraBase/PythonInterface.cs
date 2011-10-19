@@ -4,7 +4,7 @@ using System.Text;
 using IronPython.Hosting;
 using System.IO;
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	static public class PythonInterface
 	{

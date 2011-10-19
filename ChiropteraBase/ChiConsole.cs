@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	public interface IChiConsole
 	{

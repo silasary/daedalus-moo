@@ -6,7 +6,7 @@ using System.Text;
 
 #endregion
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	public delegate void ConnectEventDelegate(Exception exception);
 	public delegate void DisconnectEventDelegate();

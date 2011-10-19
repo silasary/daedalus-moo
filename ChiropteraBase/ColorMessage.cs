@@ -13,7 +13,7 @@ using System.Drawing;
  * TODO: control codes spanning multiple lines do not work
  */
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	public class ColorMessage
 	{
