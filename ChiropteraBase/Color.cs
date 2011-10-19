@@ -2,7 +2,7 @@
 using System;
 using SD = System.Drawing;
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	public struct Color : IEquatable<Color>
 	{

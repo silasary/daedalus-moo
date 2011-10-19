@@ -53,7 +53,7 @@ using System.Drawing;
 */
 
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	public struct AnsiTextStyle
 	{

@@ -26,7 +26,7 @@ namespace McpExtras
                 {
                     if (timer == null)
                     {
-                        timer = new Timer() { Interval = 60 * 100, Enabled = true };
+                        timer = new Timer() { Interval = 60 * 1000, Enabled = true };
                         timer.Start();
                         timer.Tick += new EventHandler(timer_Tick);
                     }

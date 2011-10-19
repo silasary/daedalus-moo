@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Daedalus.Forms;
-using Chiroptera.Base;
+using Daedalus.Core;
 
 namespace Daedalus
 {

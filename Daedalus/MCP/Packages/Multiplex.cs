@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiroptera.Base;
+using Daedalus.Core;
 using Daedalus.MOO;
 
 namespace Daedalus.MCP.Packages

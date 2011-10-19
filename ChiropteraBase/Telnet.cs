@@ -3,7 +3,7 @@
 using System;
 using System.Text;
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	/// <summary>
 	/// Summary description for Telnet.

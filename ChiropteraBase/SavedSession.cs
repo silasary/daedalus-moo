@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
     [Serializable]
     public class SavedSession : INotifyPropertyChanged

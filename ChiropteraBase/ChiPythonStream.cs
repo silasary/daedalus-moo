@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Chiroptera.Base;
+using Daedalus.Core;
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	public class ChiPythonStream : System.IO.Stream
 	{

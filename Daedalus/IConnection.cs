@@ -1,5 +1,5 @@
 ﻿using System;
-using Chiroptera.Base;
+using Daedalus.Core;
 namespace Daedalus
 {
     public interface IConnection : IChiConsole, INetwork

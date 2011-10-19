@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	/// <summary>
 	/// Summary description for ClientSocket.
@@ -237,9 +237,15 @@ namespace Chiroptera.Base
 			{
 				m_receiveBufferUsed = 0;
 			}
-
-			m_socket.BeginReceive(m_receiveBuffer, m_receiveBufferUsed, m_receiveBufferSize - m_receiveBufferUsed,
-				SocketFlags.None, new AsyncCallback(OnReceiveData), m_socket);
+            try
+            {
+                m_socket.BeginReceive(m_receiveBuffer, m_receiveBufferUsed, m_receiveBufferSize - m_receiveBufferUsed,
+                    SocketFlags.None, new AsyncCallback(OnReceiveData), m_socket);
+            }
+            catch (SocketException v)
+            {
+                Console.WriteLine(v.ToString());
+            }
 		}
 
 	}

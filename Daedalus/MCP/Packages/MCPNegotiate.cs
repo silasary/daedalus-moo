@@ -42,7 +42,7 @@ namespace Daedalus.MCP.Packages
                 MCPPackage package = Handler.FindPackage(KeyVals["package"], KeyVals["min-version"], KeyVals["max-version"]);
                 if (package == null)
                 {
-                    Chiroptera.Base.ChiConsole.WriteError("MCP Package not found: " + KeyVals["package"] + "[" + KeyVals["min-version"] + "," + KeyVals["max-version"] + "]");
+                    Daedalus.Core.ChiConsole.WriteError("MCP Package not found: " + KeyVals["package"] + "[" + KeyVals["min-version"] + "," + KeyVals["max-version"] + "]");
                     return;
                 }
                 package.Supported = true;

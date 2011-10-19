@@ -5,7 +5,7 @@ using System.Text;
 using Daedalus.MCP;
 namespace McpExtras
 {
-    class awnsVisual : MCPPackage
+    public class awnsVisual : MCPPackage
     {
         MCPHandler handler;
         public awnsVisual(MCPHandler h)
@@ -21,15 +21,40 @@ namespace McpExtras
         public string minVer { get { return "1.0"; } }
 
         public string maxVer { get { return "1.0"; } }
-
+        
+        Topology multiline;
         public void HandleMessage(string command, Dictionary<string, string> KeyVals)
         {
-            if (command == "dns-com-awns-visual-location") 
+            if (command == "dns-com-awns-visual-location")
+            {
                 this.location = KeyVals["id"];
+                if (EnableAutoMapperMenuItem.Checked || true)
+                    Map.UpdatePlayerLocation(location);
+            }
             //else if (command == "dns-com-awns-visual-users")
-                //#$#dns-com-awns-visual-users <auth> id: * name: * location: * idle: *
-            //else if (command == "dns-com-awns-visual-topology")
-                //#$#dns-com-awns-visual-topology <auth> id: * name: * exit: * idle: *
+            //#$#dns-com-awns-visual-users <auth> id: * name: * location: * idle: *
+            else if (command == "dns-com-awns-visual-topology")
+            {
+                //#$#dns-com-awns-visual-topology <auth> id: * name: * exit: *
+                handler.RegisterMultilineHandler(KeyVals["_data-tag"], "dns-com-awns-visual-topology-ml");
+                multiline = new Topology();
+            }
+            else if (command == "dns-com-awns-visual-topology-ml")
+            {
+                if (KeyVals.ContainsKey("id"))
+                    multiline.id.Add(KeyVals["id"]);
+                else if (KeyVals.ContainsKey("name"))
+                    multiline.name.Add(KeyVals["name"]);
+                else if (KeyVals.ContainsKey("exit"))
+                    multiline.exit.Add(KeyVals["exit"]);
+            }
+            else if (command == "dns-com-awns-visual-topology-ml-close")
+            {
+                for (int i = 0; i < multiline.id.Count; i++)
+                {
+                    Map.AddRoom(new RoomData(multiline.id[i], multiline.name[i], multiline.exit[i]));
+                }
+            }
             else if (command == "dns-com-awns-visual-self")
                 this.self = KeyVals["id"];
             else
@@ -42,6 +67,8 @@ namespace McpExtras
             handler.SendOOB("dns-com-awns-visual-getself", new Dictionary<string,string>());
             handler.CurrentConnection.AddWidgit(EnableAutoMapperMenuItem);
             EnableAutoMapperMenuItem.CheckedChanged += new EventHandler(EnableAutoMapperMenuItem_CheckedChanged);
+            Map = new AutomapForm(this);
+            Map.Show();
         }
 
         public void Disconnected()
@@ -50,6 +77,11 @@ namespace McpExtras
         }
 
         public bool Supported { get; set; }
+
+        public void RequestTopology(string roomid)
+        {
+            handler.SendOOB("dns-com-awns-visual-gettopology", MCPHandler.CreateKeyvals("location", roomid, "distance", "1"));
+        }
 
         void EnableAutoMapperMenuItem_CheckedChanged(object sender, EventArgs e)
         {
@@ -67,5 +99,13 @@ namespace McpExtras
         string location = "#-1";
 
         System.Windows.Forms.ToolStripMenuItem EnableAutoMapperMenuItem = new System.Windows.Forms.ToolStripMenuItem("Automapper") { CheckOnClick = true };
+        AutomapForm Map;
+
+        class Topology
+        {
+            public List<string> id = new List<string>();
+            public List<string> name = new List<string>();
+            public List<string> exit = new List<string>();
+        }
     }
 }

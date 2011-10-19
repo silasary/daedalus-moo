@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Chiroptera.Base;
+using Daedalus.Core;
 using System.Text.RegularExpressions;
 
 namespace Daedalus.MCP.Packages

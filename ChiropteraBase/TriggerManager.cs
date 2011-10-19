@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	public delegate bool TriggerAction(ColorMessage msg, Match match, object userdata);
 

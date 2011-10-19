@@ -6,16 +6,16 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Chiroptera.Base;
+using Daedalus.Core;
 
 namespace Daedalus.Forms
 {
     public partial class WorldSelect : Form
     {
-        Chiroptera.Base.SessionManager manager;
+        Daedalus.Core.SessionManager manager;
         public WorldSelect()
         {
-            manager = Chiroptera.Base.SessionManager.Default;
+            manager = Daedalus.Core.SessionManager.Default;
             InitializeComponent();
             imageList1.Images.Add(Properties.Resources.globe);
             listView1.VirtualMode = true;

@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 #endregion
 
-namespace Chiroptera.Base
+namespace Daedalus.Core
 {
 	public delegate bool KeyBindingAction(object userdata);
 

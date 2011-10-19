@@ -58,16 +58,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutomapForm.Designer.cs">
+      <DependentUpon>AutomapForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AwnsPing.cs" />
     <Compile Include="awnsTimezone.cs" />
     <Compile Include="awnsVisual.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoomData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChiropteraBase\Chiroptera.csproj">
+    <ProjectReference Include="..\ChiropteraBase\DaedalusCore.csproj">
       <Project>{C31F660E-90FF-4D5D-90E4-04E7FF24EF08}</Project>
-      <Name>Chiroptera</Name>
+      <Name>DaedalusCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\Daedalus\Daedalus.csproj">
       <Project>{DD45BD8A-A5B9-48FF-B76A-A70C21BF1D55}</Project>
